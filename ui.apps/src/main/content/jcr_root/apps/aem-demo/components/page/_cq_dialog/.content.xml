@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  ~ Copyright 2021 Adobe
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~     http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+<jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0"
+  xmlns:nt="http://www.jcp.org/jcr/nt/1.0" xmlns:cq="http://www.day.com/jcr/cq/1.0"
+  xmlns:granite="http://www.adobe.com/jcr/granite/1.0"
+  jcr:primaryType="nt:unstructured"
+  jcr:title="Page"
+  sling:resourceType="cq/gui/components/authoring/dialog"
+  extraClientlibs="[cq.common.wcm,core.wcm.components.page.v3.editor,cq.wcm.msm.properties,granite.contexthub.configuration,cq.siteadmin.admin.properties,core.wcm.components.image.v3.editor]"
+  helpPath="https://www.adobe.com/go/aem_cmp_page_v3"
+  mode="edit"
+  trackingFeature="core-components:page:v3">
+  <content jcr:primaryType="nt:unstructured"
+    granite:class="cq-dialog-content-page"
+    sling:resourceType="granite/ui/components/coral/foundation/container">
+    <items jcr:primaryType="nt:unstructured">
+      <tabs jcr:primaryType="nt:unstructured"
+        granite:class="cq-siteadmin-admin-properties-tabs"
+        sling:resourceType="granite/ui/components/coral/foundation/tabs"
+        size="L">
+        <items jcr:primaryType="nt:unstructured">
+          <basic jcr:primaryType="nt:unstructured"
+            jcr:title="Basic"
+            sling:resourceType="granite/ui/components/coral/foundation/fixedcolumns">
+            <items jcr:primaryType="nt:unstructured">
+              <column jcr:primaryType="nt:unstructured"
+                sling:resourceType="granite/ui/components/coral/foundation/container">
+                <items jcr:primaryType="nt:unstructured">
+                  <title jcr:primaryType="nt:unstructured"
+                    jcr:title="Title and Tags"
+                    sling:resourceType="granite/ui/components/coral/foundation/form/fieldset">
+                    <items jcr:primaryType="nt:unstructured">
+                      <title jcr:primaryType="nt:unstructured"
+                        sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                        fieldLabel="Title"
+                        name="./jcr:title"
+                        renderReadOnly="{Boolean}true"
+                        required="{Boolean}true">
+                        <granite:data jcr:primaryType="nt:unstructured"
+                          cq-msm-lockable="jcr:title"/>
+                      </title>
+                      <pagename jcr:primaryType="nt:unstructured"
+                        cq:hideOnEdit="{Boolean}true"
+                        cq:showOnCreate="{Boolean}true"
+                        sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                        fieldLabel="Name"
+                        name="pageName"
+                        validation="admin.pagename"/>
+                      <msmConfigEndpoint jcr:primaryType="nt:unstructured"
+                        granite:class="msm-config-endpoint"
+                        sling:resourceType="granite/ui/components/coral/foundation/form/hidden"
+                        value="${empty param.item ? requestPathInfo.suffix : param.item }"/>
+                      <tags jcr:primaryType="nt:unstructured"
+                        allowBulkEdit="{Boolean}true"
+                        autocreateTag="{Boolean}true"
+                        sling:resourceType="cq/gui/components/coral/common/form/tagfield"
+                        fieldLabel="Tags"
+                        multiple="{Boolean}true"
+                        name="./cq:tags">
+                        <granite:data jcr:primaryType="nt:unstructured"
+                          cq-msm-lockable="cq:tags"/>
+                      </tags>
+                      <tagsShowOnCreate jcr:primaryType="nt:unstructured"
+                        cq:hideOnEdit="{Boolean}true"
+                        cq:showOnCreate="{Boolean}true"
+                        granite:comment="Handled by a custom POST servlet for the Create Page case"
+                        sling:resourceType="cq/gui/components/coral/common/form/tagfield"
+                        fieldLabel="Tags"
+                        multiple="{Boolean}true"
+                        name="./cq:tags"/>
+                      <hideinnav jcr:primaryType="nt:unstructured"
+                        sling:resourceType="granite/ui/components/coral/foundation/form/checkbox"
+                        name="./hideInNav"
+                        renderReadOnly="{Boolean}true"
+                        text="Hide in Navigation"
+                        value="true">
+                        <granite:data jcr:primaryType="nt:unstructured"
+                          allowBulkEdit="{Boolean}true"
+                          cq-msm-lockable="hideInNav"/>
+                      </hideinnav>
+                      <hidesubpagesinnav jcr:primaryType="nt:unstructured"
+                        sling:resourceType="granite/ui/components/coral/foundation/form/checkbox"
+                        name="./hideSubPagesInNav"
+                        renderReadOnly="{Boolean}true"
+                        text="Hide all subpage in Navigation"
+                        value="true">
+                        <granite:data jcr:primaryType="nt:unstructured"
+                          allowBulkEdit="{Boolean}true"
+                          cq-msm-lockable="hideSubPagesInNav"/>
+                      </hidesubpagesinnav>
+                      <charset jcr:primaryType="nt:unstructured"
+                        sling:resourceType="granite/ui/components/coral/foundation/form/hidden"
+                        allowBulkEdit="{Boolean}true"
+                        ignoreData="{Boolean}true"
+                        name="_charset_"
+                        value="utf-8"/>
+                    </items>
+                  </title>
+                </items>
+              </column>
+            </items>
+          </basic>
+        </items>
+      </tabs>
+    </items>
+  </content>
+</jcr:root>
