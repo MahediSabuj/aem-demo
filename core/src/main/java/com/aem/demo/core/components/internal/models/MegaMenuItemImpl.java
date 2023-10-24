@@ -1,4 +1,4 @@
-package com.aem.demo.core.components.internal;
+package com.aem.demo.core.components.internal.models;
 
 import com.adobe.cq.wcm.core.components.commons.link.Link;
 import com.adobe.cq.wcm.core.components.commons.link.LinkManager;
@@ -9,7 +9,7 @@ import java.util.List;
 
 public class MegaMenuItemImpl implements MegaMenuItem {
     protected Page page;
-    protected Link<Page> link;
+    protected LinkManager linkManager;
     protected List<MegaMenuItem> children;
     protected boolean active;
     protected boolean current;
@@ -19,7 +19,7 @@ public class MegaMenuItemImpl implements MegaMenuItem {
         this.current = current;
         this.page = page;
         this.children = children;
-        this.link = linkManager.get(page).build();
+        this.linkManager = linkManager;
     }
 
     @Override
@@ -44,7 +44,7 @@ public class MegaMenuItemImpl implements MegaMenuItem {
 
     @Override
     public Link<Page> getLink() {
-        return link;
+        return linkManager == null ? null : linkManager.get(page).build();
     }
 
     @Override

@@ -1,4 +1,4 @@
-package com.aem.demo.core.components.internal;
+package com.aem.demo.core.components.internal.models;
 
 import com.adobe.cq.export.json.ExporterConstants;
 import com.adobe.cq.wcm.core.components.commons.link.LinkManager;
@@ -39,10 +39,6 @@ public class MegaMenuImpl implements MegaMenu {
     @ValueMapValue
     @Default(intValues = 3)
     int structureDepth;
-
-    @ValueMapValue
-    @Default(booleanValues = false)
-    boolean disableShadowing;
 
     @ValueMapValue
     String id;
