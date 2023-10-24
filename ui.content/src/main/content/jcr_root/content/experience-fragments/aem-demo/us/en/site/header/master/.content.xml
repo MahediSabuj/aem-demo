@@ -11,12 +11,10 @@
     <root jcr:primaryType="nt:unstructured"
       sling:resourceType="aem-demo/components/container"
       layout="simple">
-      <navigation jcr:primaryType="nt:unstructured"
-        sling:resourceType="aem-demo/components/navigation"
-        collectAllPages="false"
+      <megamenu jcr:primaryType="nt:unstructured"
+        sling:resourceType="aem-demo/components/megamenu"
         navigationRoot="/content/aem-demo/us/en"
-        skipNavigationRoot="false"
-        structureDepth="1"/>
+        structureDepth="3"/>
     </root>
   </jcr:content>
 </jcr:root>
