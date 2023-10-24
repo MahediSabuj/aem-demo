@@ -5,6 +5,7 @@ import com.adobe.cq.wcm.core.components.commons.link.LinkManager;
 import com.aem.demo.core.components.models.MegaMenuItem;
 import com.day.cq.wcm.api.Page;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class MegaMenuItemImpl implements MegaMenuItem {
@@ -49,6 +50,6 @@ public class MegaMenuItemImpl implements MegaMenuItem {
 
     @Override
     public List<MegaMenuItem> getChildren() {
-        return children;
+        return new ArrayList<>(children);
     }
 }
