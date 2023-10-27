@@ -4,4 +4,5 @@
     <filter root="/content/aem-demo"/>
     <filter root="/content/dam/aem-demo"/>
     <filter root="/content/experience-fragments/aem-demo"/>
+    <filter root="/content/cq:tags/aem-demo"/>
 </workspaceFilter>

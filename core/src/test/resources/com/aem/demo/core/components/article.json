@@ -1,0 +1,9 @@
+{
+  "article": {
+    "jcr:primaryType": "nt:unstructured",
+    "articleTitle": "Code Challenge",
+    "articleDescription": "<p>Hello World!</p>",
+    "articleTags": "we-retail:activity/biking",
+    "sling:resourceType": "aem-demo/components/article"
+  }
+}
