@@ -2,11 +2,17 @@ package com.aem.demo.core.components.internal.models;
 
 import com.adobe.cq.export.json.ExporterConstants;
 import com.aem.demo.core.components.models.Article;
+import com.aem.demo.core.components.services.RestClientService;
+import com.aem.demo.core.models.ArticleModel;
+import com.aem.demo.core.models.internals.ArticleModelImpl;
 import org.apache.sling.api.SlingHttpServletRequest;
 import org.apache.sling.models.annotations.DefaultInjectionStrategy;
 import org.apache.sling.models.annotations.Exporter;
 import org.apache.sling.models.annotations.Model;
+import org.apache.sling.models.annotations.injectorspecific.OSGiService;
 import org.apache.sling.models.annotations.injectorspecific.ValueMapValue;
+
+import javax.annotation.PostConstruct;
 
 @Model(
   adaptables = { SlingHttpServletRequest.class },
@@ -17,8 +23,11 @@ import org.apache.sling.models.annotations.injectorspecific.ValueMapValue;
   name = ExporterConstants.SLING_MODEL_EXPORTER_NAME,
   extensions = ExporterConstants.SLING_MODEL_EXTENSION
 )
-public class ArticleImpl implements Article {
+public class ArticleImpl extends ArticleModelImpl implements Article {
     protected static final String RESOURCE_TYPE = "aem-demo/components/article";
+
+    @OSGiService
+    RestClientService restClientService;
 
     @ValueMapValue
     String articleTitle;
@@ -28,6 +37,16 @@ public class ArticleImpl implements Article {
 
     @ValueMapValue
     String articleTags;
+
+    @PostConstruct
+    protected void init() {
+        ArticleModel articleModel = restClientService.get(
+            "https://6544189f5a0b4b04436c0e3c.mockapi.io/api/v1/articles/1",
+            ArticleModelImpl.class);
+
+        articleId = articleModel.getArticleId();
+        articleAuthor = articleModel.getArticleAuthor();
+    }
 
     @Override
     public String getArticleTitle() {
