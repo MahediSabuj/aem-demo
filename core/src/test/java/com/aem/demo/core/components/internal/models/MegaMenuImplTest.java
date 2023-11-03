@@ -1,16 +1,22 @@
 package com.aem.demo.core.components.internal.models;
 
+import com.aem.demo.core.components.models.Article;
 import com.aem.demo.core.components.models.MegaMenu;
 import com.aem.demo.core.components.models.MegaMenuItem;
+import com.aem.demo.core.components.services.RestClientService;
+import com.aem.demo.core.models.internals.ArticleModelImpl;
 import io.wcm.testing.mock.aem.junit5.AemContext;
 import io.wcm.testing.mock.aem.junit5.AemContextExtension;
+import org.apache.sling.models.factory.ModelFactory;
 import org.apache.sling.testing.mock.sling.servlet.MockSlingHttpServletRequest;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mockito;
 
 import java.util.List;
+import java.util.Objects;
 
 @ExtendWith(AemContextExtension.class)
 public class MegaMenuImplTest {
@@ -24,8 +30,12 @@ public class MegaMenuImplTest {
 
     @Test
     public void testMegaMenu() {
+        context.addModelsForPackage("com.aem.demo.core.models");
+
+        ModelFactory modelFactory = context.getService(ModelFactory.class);
         MockSlingHttpServletRequest request = context.request();
-        MegaMenu megaMenu = request.adaptTo(MegaMenu.class);
+
+        MegaMenu megaMenu = Objects.requireNonNull(modelFactory).createModel(request, MegaMenuImpl.class); //req.adaptTo(Article.class);
         Assertions.assertNotNull(megaMenu);
 
         Assertions.assertEquals("megamenu-48ea24db16", megaMenu.getId());
