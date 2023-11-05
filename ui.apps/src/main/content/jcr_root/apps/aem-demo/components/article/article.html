@@ -5,7 +5,7 @@
     <div>
         <h3>${article.articleTitle}, ${article.articleAuthor}</h3>
         <p>${article.articleDescription @ context = 'html'}</p>
-        <strong>${article.articleTags}</strong>
+        <ul data-sly-list="${article.articleTags}"><li>${item}</li></ul>
     </div>
 </nav>
 <sly data-sly-call="${templates.placeholder @ isEmpty = !hasContent, classAppend = 'cmp-article'}"></sly>

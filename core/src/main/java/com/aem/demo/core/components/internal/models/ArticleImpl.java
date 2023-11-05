@@ -5,11 +5,15 @@ import com.aem.demo.core.components.models.Article;
 import com.aem.demo.core.components.services.RestClientService;
 import com.aem.demo.core.models.ArticleModel;
 import com.aem.demo.core.models.internals.ArticleModelImpl;
+import com.day.cq.tagging.Tag;
+import com.day.cq.tagging.TagManager;
 import org.apache.sling.api.SlingHttpServletRequest;
+import org.apache.sling.api.resource.ResourceResolver;
 import org.apache.sling.models.annotations.DefaultInjectionStrategy;
 import org.apache.sling.models.annotations.Exporter;
 import org.apache.sling.models.annotations.Model;
 import org.apache.sling.models.annotations.injectorspecific.OSGiService;
+import org.apache.sling.models.annotations.injectorspecific.SlingObject;
 import org.apache.sling.models.annotations.injectorspecific.ValueMapValue;
 
 import javax.annotation.PostConstruct;
@@ -36,7 +40,10 @@ public class ArticleImpl extends ArticleModelImpl implements Article {
     String articleDescription;
 
     @ValueMapValue
-    String articleTags;
+    String[] articleTags;
+
+    @SlingObject
+    ResourceResolver resourceResolver;
 
     @PostConstruct
     protected void init() {
@@ -59,7 +66,16 @@ public class ArticleImpl extends ArticleModelImpl implements Article {
     }
 
     @Override
-    public String getArticleTags() {
-        return articleTags;
+    public String[] getArticleTags() {
+        TagManager tagManager = resourceResolver.adaptTo(TagManager.class);
+
+        String[] tagList = new String[articleTags.length];
+        for (int index = 0; index < articleTags.length; index++) {
+            Tag tag = tagManager.resolve(articleTags[index]);
+            if(tag != null) {
+                tagList[index] = tag.getTitle();
+            }
+        }
+        return tagList;
     }
 }

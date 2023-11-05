@@ -7,5 +7,5 @@ public interface Article extends ArticleModel {
 
     String getArticleDescription();
 
-    String getArticleTags();
+    String[] getArticleTags();
 }

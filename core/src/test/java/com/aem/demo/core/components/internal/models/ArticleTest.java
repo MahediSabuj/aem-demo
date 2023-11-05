@@ -48,6 +48,11 @@ public class ArticleTest {
         Assertions.assertNotNull(article);
         Assertions.assertEquals("AEM Community", article.getArticleTitle());
         Assertions.assertEquals("<p>Hello World!</p>", article.getArticleDescription());
-        Assertions.assertEquals("aem-demo:activity", article.getArticleTags());
+
+        String[] articleTags = article.getArticleTags();
+        Assertions.assertNotNull(articleTags);
+        Assertions.assertEquals(2, articleTags.length);
+        Assertions.assertEquals("Biking", articleTags[0]);
+        Assertions.assertEquals("Hiking", articleTags[1]);
     }
 }
