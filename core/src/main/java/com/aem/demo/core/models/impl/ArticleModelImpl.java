@@ -1,4 +1,4 @@
-package com.aem.demo.core.models.internals;
+package com.aem.demo.core.models.impl;
 
 import com.aem.demo.core.models.ArticleModel;
 

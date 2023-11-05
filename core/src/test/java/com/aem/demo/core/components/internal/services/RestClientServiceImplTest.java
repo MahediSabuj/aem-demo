@@ -2,7 +2,7 @@ package com.aem.demo.core.components.internal.services;
 
 import com.aem.demo.core.components.services.RestClientService;
 import com.aem.demo.core.models.ArticleModel;
-import com.aem.demo.core.models.internals.ArticleModelImpl;
+import com.aem.demo.core.models.impl.ArticleModelImpl;
 import io.wcm.testing.mock.aem.junit5.AemContextExtension;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;

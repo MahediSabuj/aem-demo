@@ -4,7 +4,8 @@ import com.adobe.cq.export.json.ExporterConstants;
 import com.aem.demo.core.components.models.Article;
 import com.aem.demo.core.components.services.RestClientService;
 import com.aem.demo.core.models.ArticleModel;
-import com.aem.demo.core.models.internals.ArticleModelImpl;
+import com.aem.demo.core.models.impl.ArticleModelImpl;
+import com.aem.demo.core.services.AppConfigurationService;
 import com.day.cq.tagging.Tag;
 import com.day.cq.tagging.TagManager;
 import org.apache.sling.api.SlingHttpServletRequest;
@@ -45,11 +46,14 @@ public class ArticleImpl extends ArticleModelImpl implements Article {
     @SlingObject
     ResourceResolver resourceResolver;
 
+    @OSGiService
+    AppConfigurationService appConfigurationService;
+
     @PostConstruct
     protected void init() {
-        ArticleModel articleModel = restClientService.get(
-            "https://6544189f5a0b4b04436c0e3c.mockapi.io/api/v1/articles/1",
-            ArticleModelImpl.class);
+        final String URL = String.format("%s/api/v1/articles/1", appConfigurationService.getApiDomain());
+
+        ArticleModel articleModel = restClientService.get(URL, ArticleModelImpl.class);
 
         articleId = articleModel.getArticleId();
         articleAuthor = articleModel.getArticleAuthor();

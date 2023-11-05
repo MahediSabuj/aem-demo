@@ -2,7 +2,8 @@ package com.aem.demo.core.components.internal.models;
 
 import com.aem.demo.core.components.models.Article;
 import com.aem.demo.core.components.services.RestClientService;
-import com.aem.demo.core.models.internals.ArticleModelImpl;
+import com.aem.demo.core.models.impl.ArticleModelImpl;
+import com.aem.demo.core.services.AppConfigurationService;
 import io.wcm.testing.mock.aem.junit5.AemContext;
 import io.wcm.testing.mock.aem.junit5.AemContextExtension;
 import org.apache.sling.models.factory.ModelFactory;
@@ -24,6 +25,9 @@ public class ArticleTest {
     @Mock
     private RestClientService restClientService;
 
+    @Mock
+    private AppConfigurationService appConfigurationService;
+
     @BeforeEach
     public void setup() {
         MockitoAnnotations.openMocks(this);
@@ -36,9 +40,12 @@ public class ArticleTest {
     public void testArticle() {
         context.addModelsForPackage("com.aem.demo.core.models");
         context.registerService(RestClientService.class, restClientService);
+        context.registerService(AppConfigurationService.class, appConfigurationService);
 
         ModelFactory modelFactory = context.getService(ModelFactory.class);
         MockSlingHttpServletRequest request = context.request();
+
+        Mockito.when(appConfigurationService.getApiDomain()).thenReturn("https://www.google.com");
 
         Mockito.when(restClientService.get(Mockito.anyString(), Mockito.eq(ArticleModelImpl.class)))
                 .thenReturn(new ArticleModelImpl());
