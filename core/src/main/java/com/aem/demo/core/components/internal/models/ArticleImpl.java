@@ -31,9 +31,6 @@ import javax.annotation.PostConstruct;
 public class ArticleImpl extends ArticleModelImpl implements Article {
     protected static final String RESOURCE_TYPE = "aem-demo/components/article";
 
-    @OSGiService
-    RestClientService restClientService;
-
     @ValueMapValue
     String articleTitle;
 
@@ -48,6 +45,9 @@ public class ArticleImpl extends ArticleModelImpl implements Article {
 
     @OSGiService
     AppConfigurationService appConfigurationService;
+
+    @OSGiService
+    RestClientService restClientService;
 
     @PostConstruct
     protected void init() {
