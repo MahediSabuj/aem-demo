@@ -70,6 +70,7 @@
                         sling:resourceType="cq/gui/components/coral/common/form/tagfield"
                         fieldLabel="Tags"
                         multiple="{Boolean}true"
+                        required="{Boolean}true"
                         name="./cq:tags">
                         <granite:data jcr:primaryType="nt:unstructured"
                           cq-msm-lockable="cq:tags"/>
