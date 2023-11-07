@@ -52,7 +52,6 @@ public class ArticleImpl extends ArticleModelImpl implements Article {
     @PostConstruct
     protected void init() {
         final String URL = String.format("%s/api/v1/articles/1", appConfigurationService.getApiDomain());
-
         ArticleModel articleModel = restClientService.get(URL, ArticleModelImpl.class);
 
         articleId = articleModel.getArticleId();
