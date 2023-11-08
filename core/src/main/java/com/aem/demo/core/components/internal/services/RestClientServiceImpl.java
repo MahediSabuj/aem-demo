@@ -1,10 +1,13 @@
 package com.aem.demo.core.components.internal.services;
 
 import com.aem.demo.core.components.services.RestClientService;
+import com.aem.demo.core.services.AppConfigurationService;
+import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.commons.lang3.StringUtils;
 import org.osgi.framework.Constants;
 import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.annotations.Reference;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -24,6 +27,9 @@ public class RestClientServiceImpl implements RestClientService {
     private static final Logger LOGGER = LoggerFactory.getLogger(RestClientServiceImpl.class);
     private static final int CONNECTION_TIMEOUT = 10;
 
+    @Reference
+    AppConfigurationService appConfigurationService;
+
     private HttpClient getHttpClient(int... timeout) {
         int connectionTimeout = Arrays.stream(timeout).findFirst().orElse(CONNECTION_TIMEOUT);
 
@@ -35,10 +41,11 @@ public class RestClientServiceImpl implements RestClientService {
 
     private String get(String url) throws IOException, InterruptedException {
         HttpClient httpClient = getHttpClient();
+        final String API_URL = appConfigurationService.getApiDomain().concat(url);
 
         HttpRequest httpRequest = HttpRequest.newBuilder()
             .GET()
-            .uri(URI.create(url))
+            .uri(URI.create(API_URL))
             .build();
 
         HttpResponse<String> httpResponse = httpClient.send(httpRequest, HttpResponse.BodyHandlers.ofString());
@@ -56,6 +63,7 @@ public class RestClientServiceImpl implements RestClientService {
 
             if(StringUtils.isNotBlank(response)) {
                 ObjectMapper objectMapper = new ObjectMapper();
+                objectMapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
                 return objectMapper.readValue(response, type);
             }
         } catch (IOException | InterruptedException ex) {

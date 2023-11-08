@@ -5,7 +5,6 @@ import com.aem.demo.core.components.models.Article;
 import com.aem.demo.core.components.services.RestClientService;
 import com.aem.demo.core.models.ArticleModel;
 import com.aem.demo.core.models.impl.ArticleModelImpl;
-import com.aem.demo.core.services.AppConfigurationService;
 import com.day.cq.tagging.Tag;
 import com.day.cq.tagging.TagManager;
 import org.apache.sling.api.SlingHttpServletRequest;
@@ -44,15 +43,11 @@ public class ArticleImpl extends ArticleModelImpl implements Article {
     ResourceResolver resourceResolver;
 
     @OSGiService
-    AppConfigurationService appConfigurationService;
-
-    @OSGiService
     RestClientService restClientService;
 
     @PostConstruct
     protected void init() {
-        final String URL = String.format("%s/api/v1/articles/1", appConfigurationService.getApiDomain());
-        ArticleModel articleModel = restClientService.get(URL, ArticleModelImpl.class);
+        ArticleModel articleModel = restClientService.get("/api/v1/articles/1", ArticleModelImpl.class);
 
         articleId = articleModel.getArticleId();
         articleAuthor = articleModel.getArticleAuthor();
