@@ -1,0 +1,8 @@
+<template data-sly-template.item="${@ item='The navigation item'}"
+    data-sly-use.groupTemplate="group.html"
+    data-sly-use.itemContentTemplate="itemContent.html">
+    <li class="cmp-megamenu__item${item.active ? ' cmp-megamenu__item--active' : ''}">
+        <sly data-sly-call="${itemContentTemplate.itemContent @ item = item}"></sly>
+        <sly data-sly-test="${item.children.size > 0}" data-sly-call="${groupTemplate.group @ items = item.children}"></sly>
+    </li>
+</template>
