@@ -13,8 +13,6 @@
         layout="responsiveGrid"/>
     </root>
   </jcr:content>
-  <postpaid/>
-  <sim-only/>
   <prepaid/>
-  <corporate-Individual-scheme/>
+  <postpaid/>
 </jcr:root>

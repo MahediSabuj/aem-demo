@@ -13,6 +13,6 @@
         layout="responsiveGrid"/>
     </root>
   </jcr:content>
-  <devices-gadgets/>
+  <gadgets/>
   <services/>
 </jcr:root>

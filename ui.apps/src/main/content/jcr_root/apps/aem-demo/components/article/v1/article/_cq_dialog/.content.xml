@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  ~ Copyright 2021 Adobe
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~     http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+<jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0"
+  xmlns:nt="http://www.jcp.org/jcr/nt/1.0" xmlns:cq="http://www.day.com/jcr/cq/1.0"
+  xmlns:granite="http://www.adobe.com/jcr/granite/1.0"
+  jcr:primaryType="nt:unstructured"
+  jcr:title="Article"
+  sling:resourceType="cq/gui/components/authoring/dialog">
+  <content jcr:primaryType="nt:unstructured"
+    sling:resourceType="granite/ui/components/coral/foundation/container">
+    <items jcr:primaryType="nt:unstructured">
+      <tabs jcr:primaryType="nt:unstructured"
+        sling:resourceType="granite/ui/components/coral/foundation/tabs"
+        maximized="{Boolean}true">
+        <items jcr:primaryType="nt:unstructured">
+          <properties jcr:primaryType="nt:unstructured"
+            jcr:title="Properties"
+            sling:resourceType="granite/ui/components/coral/foundation/container"
+            margin="{Boolean}true">
+            <items jcr:primaryType="nt:unstructured">
+              <columns jcr:primaryType="nt:unstructured"
+                sling:resourceType="granite/ui/components/coral/foundation/fixedcolumns"
+                margin="{Boolean}true">
+                <items jcr:primaryType="nt:unstructured">
+                  <column jcr:primaryType="nt:unstructured"
+                    sling:resourceType="granite/ui/components/coral/foundation/container">
+                    <items jcr:primaryType="nt:unstructured">
+                      <articleTitle jcr:primaryType="nt:unstructured"
+                        sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                        fieldDescription="Title of the Article"
+                        fieldLabel="Article Title"
+                        name="./articleTitle"
+                        required="{Boolean}true"/>
+                      <articleDescription jcr:primaryType="nt:unstructured"
+                        sling:resourceType="cq/gui/components/authoring/dialog/richtext"
+                        name="./articleDescription"
+                        useFixedInlineToolbar="{Boolean}true">
+                        <rtePlugins jcr:primaryType="nt:unstructured">
+                          <format jcr:primaryType="nt:unstructured"
+                            features="*"/>
+                          <justify jcr:primaryType="nt:unstructured"
+                            features="*"/>
+                          <lists jcr:primaryType="nt:unstructured"
+                            features="*"/>
+                          <paraformat jcr:primaryType="nt:unstructured"
+                            features="*">
+                            <formats jcr:primaryType="cq:WidgetCollection">
+                              <default_p jcr:primaryType="nt:unstructured"
+                                description="Paragraph"
+                                tag="p"/>
+                              <default_h1 jcr:primaryType="nt:unstructured"
+                                description="Heading 1"
+                                tag="h1"/>
+                              <default_h2 jcr:primaryType="nt:unstructured"
+                                description="Heading 2"
+                                tag="h2"/>
+                              <default_h3 jcr:primaryType="nt:unstructured"
+                                description="Heading 3"
+                                tag="h3"/>
+                              <default_h4 jcr:primaryType="nt:unstructured"
+                                description="Heading 4"
+                                tag="h4"/>
+                              <default_h5 jcr:primaryType="nt:unstructured"
+                                description="Heading 5"
+                                tag="h5"/>
+                              <default_h6 jcr:primaryType="nt:unstructured"
+                                description="Heading 6"
+                                tag="h6"/>
+                              <default_blockquote jcr:primaryType="nt:unstructured"
+                                description="Quote"
+                                tag="blockquote"/>
+                              <default_pre jcr:primaryType="nt:unstructured"
+                                description="Preformatted"
+                                tag="pre"/>
+                            </formats>
+                          </paraformat>
+                          <links jcr:primaryType="nt:unstructured"
+                            features="*"/>
+                          <styles jcr:primaryType="nt:unstructured"
+                            features="*">
+                            <styles jcr:primaryType="nt:unstructured">
+                              <plainSpan jcr:primaryType="nt:unstructured"
+                                cssName="defaultSpan"
+                                text="Default (add span tag)"/>
+                              <lead jcr:primaryType="nt:unstructured"
+                                cssName="lead"
+                                text="Lead"/>
+                              <white jcr:primaryType="nt:unstructured"
+                                cssName="text-white"
+                                text="White"/>
+                              <small jcr:primaryType="nt:unstructured"
+                                cssName="small"
+                                text="Small"/>
+                            </styles>
+                          </styles>
+                        </rtePlugins>
+                        <uiSettings jcr:primaryType="nt:unstructured">
+                          <cui jcr:primaryType="nt:unstructured">
+                            <inline jcr:primaryType="nt:unstructured"
+                              toolbar="[#format,#justify,links#modifylink,#lists,#styles,#paraformat]">
+                              <popovers jcr:primaryType="nt:unstructured">
+                                <format jcr:primaryType="nt:unstructured"
+                                  items="[format#bold,format#italic,format#underline]"
+                                  ref="format"/>
+                                <justify jcr:primaryType="nt:unstructured"
+                                  items="[justify#justifyleft,justify#justifycenter,justify#justifyright,justify#justifyjustify]"
+                                  ref="justify"/>
+                                <lists jcr:primaryType="nt:unstructured"
+                                  items="[lists#unordered,lists#ordered,lists#outdent,lists#indent]"
+                                  ref="lists"/>
+                                <paraformat jcr:primaryType="nt:unstructured"
+                                  items="paraformat:getFormats:paraformat-pulldown"
+                                  ref="paraformat"/>
+                                <styles jcr:primaryType="nt:unstructured"
+                                  items="styles:getStyles:styles-pulldown"
+                                  ref="styles"/>
+                              </popovers>
+                            </inline>
+                            <dialogFullScreen jcr:primaryType="nt:unstructured"
+                              toolbar="[#format,#justify,links#modifylink,#lists,#styles,#paraformat]">
+                              <popovers jcr:primaryType="nt:unstructured">
+                                <format jcr:primaryType="nt:unstructured"
+                                  items="[format#bold,format#italic,format#underline]"
+                                  ref="format"/>
+                                <justify jcr:primaryType="nt:unstructured"
+                                  items="[justify#justifyleft,justify#justifycenter,justify#justifyright,justify#justifyjustify]"
+                                  ref="justify"/>
+                                <lists jcr:primaryType="nt:unstructured"
+                                  items="[lists#unordered,lists#ordered,lists#outdent,lists#indent]"
+                                  ref="lists"/>
+                                <paraformat jcr:primaryType="nt:unstructured"
+                                  items="paraformat:getFormats:paraformat-pulldown"
+                                  ref="paraformat"/>
+                                <styles jcr:primaryType="nt:unstructured"
+                                  items="styles:getStyles:styles-pulldown"
+                                  ref="styles"/>
+                              </popovers>
+                            </dialogFullScreen>
+                          </cui>
+                        </uiSettings>
+                      </articleDescription>
+                      <articleTags cq:hideOnEdit="{Boolean}false"
+                         cq:showOnCreate="{Boolean}true"
+                         jcr:primaryType="nt:unstructured"
+                         sling:resourceType="cq/gui/components/coral/common/form/tagfield"
+                         allowBulkEdit="{Boolean}true"
+                         autocreateTag="{Boolean}true"
+                         fieldLabel="Article Tags"
+                         multiple="{Boolean}true"
+                         rootPath="/content/cq:tags/aem-demo"
+                         name="./articleTags" />
+                    </items>
+                  </column>
+                </items>
+              </columns>
+            </items>
+          </properties>
+        </items>
+      </tabs>
+    </items>
+  </content>
+</jcr:root>

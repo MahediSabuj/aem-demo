@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jcr:root xmlns:dam="http://www.day.com/dam/1.0" xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0" xmlns:mix="http://www.jcp.org/jcr/mix/1.0" xmlns:nt="http://www.jcp.org/jcr/nt/1.0"
+  jcr:isCheckedOut="{Boolean}true"
+  jcr:mixinTypes="[mix:referenceable,mix:versionable]"
+  jcr:primaryType="dam:Asset">
+  <jcr:content jcr:primaryType="dam:AssetContent"
+    cq:name="mahedi-sabuj"
+    cq:parentPath="/content/dam/aem-demo/us/en/authors"
+    jcr:title="Mahedi Sabuj"
+    contentFragment="{Boolean}true">
+    <data jcr:primaryType="nt:unstructured"
+      cq:model="/conf/aem-demo/settings/dam/cfm/models/author">
+      <master jcr:primaryType="nt:unstructured"
+        jcr:mixinTypes="[cq:Taggable,dam:cfVariationNode]"
+        name="Mahedi Sabuj"/>
+    </data>
+    <indexedData jcr:primaryType="nt:unstructured">
+      <master jcr:primaryType="nt:unstructured"
+        jcr:mixinTypes="[dam:IndexedFragmentData]"
+        _x0040_string_x0040_model="/conf/aem-demo/settings/dam/cfm/models/author"
+        _x0040_stringArray_x0040_variations="[]"
+        string_x0040_name="Mahedi Sabuj"/>
+    </indexedData>
+    <metadata jcr:primaryType="nt:unstructured"
+      jcr:mixinTypes="[cq:Taggable]"/>
+    <related jcr:primaryType="nt:unstructured"/>
+  </jcr:content>
+</jcr:root>
