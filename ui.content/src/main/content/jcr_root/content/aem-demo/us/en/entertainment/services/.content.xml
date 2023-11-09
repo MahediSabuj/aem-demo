@@ -13,8 +13,4 @@
         layout="responsiveGrid"/>
     </root>
   </jcr:content>
-  <tv-packs/>
-  <dvr-set-top-box/>
-  <singtel-tv-go/>
-  <cast/>
 </jcr:root>

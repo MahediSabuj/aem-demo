@@ -13,7 +13,5 @@
         layout="responsiveGrid"/>
     </root>
   </jcr:content>
-  <channel-list/>
-  <tv-guide/>
   <live-events/>
 </jcr:root>

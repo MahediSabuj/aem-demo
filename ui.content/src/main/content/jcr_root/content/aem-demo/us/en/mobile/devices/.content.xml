@@ -13,7 +13,4 @@
         layout="responsiveGrid"/>
     </root>
   </jcr:content>
-  <with-phone-plan/>
-  <with-sim-only-plus-plan/>
-  <without-plan/>
 </jcr:root>
