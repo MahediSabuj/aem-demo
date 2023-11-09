@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0" xmlns:granite="http://www.adobe.com/jcr/granite/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0" xmlns:cq="http://www.day.com/jcr/cq/1.0"
+  jcr:primaryType="cq:Template"
+  allowedPaths="[/content/entities(/.*)?]"
+  ranking="{Long}100">
+  <jcr:content jcr:primaryType="cq:PageContent"
+    cq:scaffolding="/conf/aem-demo/settings/dam/cfm/models/article/jcr:content/model"
+    cq:templateType="/libs/settings/dam/cfm/model-types/fragment"
+    jcr:title="Article"
+    sling:resourceSuperType="dam/cfm/models/console/components/data/entity"
+    sling:resourceType="dam/cfm/models/console/components/data/entity/default"
+    status="enabled">
+    <metadata jcr:primaryType="nt:unstructured"/>
+    <model jcr:primaryType="cq:PageContent"
+      cq:targetPath="/content/entities"
+      sling:resourceType="wcm/scaffolding/components/scaffolding"
+      dataTypesConfig="/mnt/overlay/settings/dam/cfm/models/formbuilderconfig/datatypes"
+      maxGeneratedOrder="20">
+      <cq:dialog jcr:primaryType="nt:unstructured"
+        sling:resourceType="cq/gui/components/authoring/dialog">
+        <content jcr:primaryType="nt:unstructured"
+          sling:resourceType="granite/ui/components/coral/foundation/fixedcolumns">
+          <items jcr:primaryType="nt:unstructured"
+            maxGeneratedOrder="22">
+            <_x0031_699542716570 jcr:primaryType="nt:unstructured"
+              sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+              fieldLabel="Title"
+              listOrder="1"
+              maxlength="255"
+              metaType="text-single"
+              name="title"
+              renderReadOnly="false"
+              required="on"
+              showEmptyInReadOnly="true"
+              valueType="string">
+              <granite:data jcr:primaryType="nt:unstructured"/>
+            </_x0031_699542716570>
+            <_x0031_699542758400 jcr:primaryType="nt:unstructured"
+              sling:resourceType="dam/cfm/admin/components/authoring/contenteditor/multieditor"
+              cfm-element="Description"
+              checked="false"
+              default-mime-type="text/html"
+              listOrder="2"
+              metaType="text-multi"
+              name="description"
+              renderReadOnly="false"
+              showEmptyInReadOnly="true"
+              valueType="string/multiline"/>
+            <_x0031_699542935831 jcr:primaryType="nt:unstructured"
+              sling:resourceType="dam/cfm/models/editor/components/fragmentreference"
+              allowNew="{Boolean}true"
+              fieldLabel="Author"
+              filter="hierarchy"
+              fragmentmodelreference="/conf/aem-demo/settings/dam/cfm/models/author"
+              listOrder="22"
+              metaType="fragment-reference"
+              name="author"
+              nameSuffix="contentReference"
+              renderReadOnly="false"
+              rootPath="/content/dam/aem-demo"
+              showEmptyInReadOnly="true"
+              valueType="string/content-fragment">
+              <field jcr:primaryType="nt:unstructured"
+                rootPath="/content/dam/aem-demo"/>
+              <granite:data jcr:primaryType="nt:unstructured"/>
+            </_x0031_699542935831>
+          </items>
+        </content>
+      </cq:dialog>
+    </model>
+  </jcr:content>
+</jcr:root>

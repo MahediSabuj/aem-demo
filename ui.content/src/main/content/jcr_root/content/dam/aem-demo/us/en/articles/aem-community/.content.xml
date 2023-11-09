@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jcr:root xmlns:dam="http://www.day.com/dam/1.0" xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0" xmlns:mix="http://www.jcp.org/jcr/mix/1.0" xmlns:nt="http://www.jcp.org/jcr/nt/1.0"
+  jcr:isCheckedOut="{Boolean}true"
+  jcr:mixinTypes="[mix:referenceable,mix:versionable]"
+  jcr:primaryType="dam:Asset">
+  <jcr:content jcr:primaryType="dam:AssetContent"
+    cq:name="aem-community"
+    cq:parentPath="/content/dam/aem-demo/us/en/articles"
+    jcr:title="AEM Community"
+    contentFragment="{Boolean}true">
+    <data jcr:primaryType="nt:unstructured"
+      cq:model="/conf/aem-demo/settings/dam/cfm/models/article">
+      <master jcr:primaryType="nt:unstructured"
+        jcr:mixinTypes="[cq:Taggable,dam:cfVariationNode]"
+        author="/content/dam/aem-demo/us/en/authors/mahedi-sabuj"
+        description="&lt;p>Hello World!!&lt;/p>"
+        description_x0040_ContentType="text/html"
+        title="AEM Community"/>
+    </data>
+    <indexedData jcr:primaryType="nt:unstructured">
+      <master jcr:primaryType="nt:unstructured"
+        jcr:mixinTypes="[dam:IndexedFragmentData]"
+        _x0040_string_x0040_model="/conf/aem-demo/settings/dam/cfm/models/article"
+        _x0040_stringArray_x0040_variations="[]"
+        string_x0040_description="&lt;p>Hello World!!&lt;/p>"
+        string_x0040_title="AEM Community"/>
+    </indexedData>
+    <metadata jcr:primaryType="nt:unstructured"
+      jcr:mixinTypes="[cq:Taggable]"/>
+    <related jcr:primaryType="nt:unstructured"/>
+  </jcr:content>
+</jcr:root>
