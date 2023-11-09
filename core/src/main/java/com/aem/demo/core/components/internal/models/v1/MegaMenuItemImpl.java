@@ -1,4 +1,4 @@
-package com.aem.demo.core.components.internal.models;
+package com.aem.demo.core.components.internal.models.v1;
 
 import com.adobe.cq.wcm.core.components.commons.link.Link;
 import com.adobe.cq.wcm.core.components.commons.link.LinkManager;

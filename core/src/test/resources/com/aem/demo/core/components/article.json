@@ -4,7 +4,7 @@
     "articleTitle": "AEM Community",
     "articleDescription": "<p>Hello World!</p>",
     "articleTags": ["aem-demo:activity/biking", "aem-demo:activity/hiking"],
-    "sling:resourceType": "aem-demo/components/article"
+    "sling:resourceType": "aem-demo/components/article/v1/article"
   },
   "cq:tags": {
     "jcr:primaryType": "sling:Folder",

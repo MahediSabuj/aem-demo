@@ -1,4 +1,4 @@
-package com.aem.demo.core.components.internal.models;
+package com.aem.demo.core.components.internal.models.v1;
 
 import com.aem.demo.core.components.models.Article;
 import com.aem.demo.core.components.services.RestClientService;

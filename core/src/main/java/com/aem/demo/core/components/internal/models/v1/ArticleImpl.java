@@ -1,4 +1,4 @@
-package com.aem.demo.core.components.internal.models;
+package com.aem.demo.core.components.internal.models.v1;
 
 import com.adobe.cq.export.json.ExporterConstants;
 import com.aem.demo.core.components.models.Article;
@@ -28,7 +28,7 @@ import javax.annotation.PostConstruct;
   extensions = ExporterConstants.SLING_MODEL_EXTENSION
 )
 public class ArticleImpl extends ArticleModelImpl implements Article {
-    protected static final String RESOURCE_TYPE = "aem-demo/components/article";
+    protected static final String RESOURCE_TYPE = "aem-demo/components/article/v1/article";
 
     @ValueMapValue
     String articleTitle;

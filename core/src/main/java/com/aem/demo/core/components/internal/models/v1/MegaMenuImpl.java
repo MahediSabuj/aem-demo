@@ -1,4 +1,4 @@
-package com.aem.demo.core.components.internal.models;
+package com.aem.demo.core.components.internal.models.v1;
 
 import com.adobe.cq.export.json.ExporterConstants;
 import com.adobe.cq.wcm.core.components.commons.link.LinkManager;
@@ -31,7 +31,7 @@ import java.util.stream.StreamSupport;
   extensions = ExporterConstants.SLING_MODEL_EXTENSION
 )
 public class MegaMenuImpl implements MegaMenu {
-    protected static final String RESOURCE_TYPE = "aem-demo/components/megamenu";
+    protected static final String RESOURCE_TYPE = "aem-demo/components/megamenu/v1/megamenu";
 
     @ValueMapValue
     String navigationRoot;
