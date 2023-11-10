@@ -1,0 +1,17 @@
+{
+  "include-filter.config.enabled": true,
+  "include-filter.config.appendSuffix": true,
+  "include-filter.config.add_comment": true,
+  "include-filter.config.disableIgnoreUrlParams": false,
+  "include-filter.config.extension": "html",
+  "include-filter.config.ignoreUrlParams": [""],
+  "include-filter.config.include-type": "SSI",
+  "include-filter.config.resource-types": [
+    "aem-demo/components/megamenu/v1/megamenu"
+  ],
+  "include-filter.config.rewrite": false,
+  "include-filter.config.path": "/content/experience-fragments/aem-demo",
+  "include-filter.config.selector": "nocache",
+  "include-filter.config.required_header": "Server-Agent=Communique-Dispatcher",
+  "include-filter.config.ttl": ""
+}
