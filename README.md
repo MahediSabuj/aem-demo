@@ -1,5 +1,5 @@
 # AEM Demo
-Demonstration Project for an Assignment
+Demonstration Project
 
 ## Environment Details:
 - Apache Maven v3.8.1
