@@ -1,0 +1,11 @@
+<div class="login__inner">
+    <form method="post" novalidate
+        action="${'{0}.{1}.{2}' @ format = [resource.path, 'login', 'html']}" name="login">
+        <div class="username"
+             data-sly-resource="${'formusername' @ resourceType = 'aem-demo/components/formtext'}"></div>
+        <div class="password"
+             data-sly-resource="${'formpassword' @ resourceType = 'aem-demo/components/formtext'}"></div>
+        <div class="button"
+             data-sly-resource="${'formbutton' @ resourceType = 'aem-demo/components/formbutton'}"></div>
+    </form>
+</div>
