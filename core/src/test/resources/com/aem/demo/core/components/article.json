@@ -3,6 +3,7 @@
     "jcr:primaryType": "nt:unstructured",
     "articleTitle": "AEM Community",
     "articleDescription": "<p>Hello World!</p>",
+    "articleAuthor": "Mahedi Sabuj",
     "articleTags": ["aem-demo:activity/biking", "aem-demo:activity/hiking"],
     "sling:resourceType": "aem-demo/components/article/v1/article"
   },

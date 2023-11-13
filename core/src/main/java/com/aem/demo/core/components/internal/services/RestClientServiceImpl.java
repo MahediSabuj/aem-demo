@@ -26,7 +26,7 @@ import java.util.Map;
     Constants.SERVICE_DESCRIPTION + "=Rest Client Service"
 })
 public class RestClientServiceImpl implements RestClientService {
-    private static final Logger LOGGER = LoggerFactory.getLogger(RestClientServiceImpl.class);
+    private final Logger LOGGER = LoggerFactory.getLogger(this.getClass());
     private static final int CONNECTION_TIMEOUT = 10;
 
     @Reference
@@ -74,7 +74,7 @@ public class RestClientServiceImpl implements RestClientService {
             if(httpResponse.statusCode() == 200)
                 return httpResponse.body();
         } catch (IOException | InterruptedException ex) {
-            LOGGER.error(ex.getMessage());
+            LOGGER.error("Error in Send Request");
         }
 
         return StringUtils.EMPTY;

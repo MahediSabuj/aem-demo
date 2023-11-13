@@ -7,6 +7,13 @@ public class TokenModelImpl implements TokenModel {
     @JsonProperty("access_token")
     private String accessToken;
 
+    public TokenModelImpl() {
+    }
+
+    public TokenModelImpl(String accessToken) {
+        this.accessToken = accessToken;
+    }
+
     @Override
     public String getAccessToken() {
         return accessToken;

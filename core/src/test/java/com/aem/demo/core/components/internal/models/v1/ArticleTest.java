@@ -37,6 +37,7 @@ public class ArticleTest {
         Assertions.assertNotNull(article);
         Assertions.assertEquals("AEM Community", article.getArticleTitle());
         Assertions.assertEquals("<p>Hello World!</p>", article.getArticleDescription());
+        Assertions.assertEquals("Mahedi Sabuj", article.getArticleAuthor());
 
         String[] articleTags = article.getArticleTags();
         Assertions.assertNotNull(articleTags);
