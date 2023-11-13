@@ -1,11 +1,11 @@
 package com.aem.demo.core.components.models;
 
-import com.aem.demo.core.models.ArticleModel;
-
-public interface Article extends ArticleModel {
+public interface Article {
     String getArticleTitle();
 
     String getArticleDescription();
+
+    String getArticleAuthor();
 
     String[] getArticleTags();
 }

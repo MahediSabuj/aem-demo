@@ -18,7 +18,17 @@ public class AppConfigurationServiceImpl implements AppConfigurationService {
     }
 
     @Override
-    public String getApiDomain() {
-        return appConfig.api_domain();
+    public String getApiBaseUrl() {
+        return appConfig.api_baseurl();
+    }
+
+    @Override
+    public String getClientId() {
+        return appConfig.client_id();
+    }
+
+    @Override
+    public String getRedirectUri() {
+        return appConfig.redirect_uri();
     }
 }

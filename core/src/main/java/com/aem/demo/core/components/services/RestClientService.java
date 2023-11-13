@@ -1,7 +1,9 @@
 package com.aem.demo.core.components.services;
 
-public interface RestClientService {
-    <T> T get(String url, Class<T> type);
+import java.util.Map;
 
-    <T> T post(String url, String body, Class<T> type);
+public interface RestClientService {
+    <T> T get(String url, Map<String, String> headers, Class<T> type);
+
+    <T> T post(String url, String body, Map<String, String> headers, Class<T> type);
 }

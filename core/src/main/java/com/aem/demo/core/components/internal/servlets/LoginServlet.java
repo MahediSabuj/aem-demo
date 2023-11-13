@@ -1,5 +1,6 @@
 package com.aem.demo.core.components.internal.servlets;
 
+import com.aem.demo.core.components.services.LoginService;
 import org.apache.sling.api.SlingHttpServletRequest;
 import org.apache.sling.api.SlingHttpServletResponse;
 import org.apache.sling.api.request.RequestParameterMap;
@@ -7,6 +8,7 @@ import org.apache.sling.api.servlets.HttpConstants;
 import org.apache.sling.api.servlets.SlingAllMethodsServlet;
 import org.apache.sling.servlets.annotations.SlingServletResourceTypes;
 import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.annotations.Reference;
 import org.osgi.service.component.propertytypes.ServiceDescription;
 
 import javax.servlet.Servlet;
@@ -22,6 +24,9 @@ import java.util.Objects;
   methods = HttpConstants.METHOD_POST)
 @ServiceDescription("Login Servlet")
 public class LoginServlet extends SlingAllMethodsServlet {
+    @Reference
+    private LoginService loginService;
+
     private String getParameter(RequestParameterMap map, String param) {
         return Objects.requireNonNull(map.getValue(param)).getString();
     }
@@ -34,7 +39,7 @@ public class LoginServlet extends SlingAllMethodsServlet {
 
         String loginResponse = "Invalid Credentials";
 
-        if(username.equals("admin") && password.equals("admin")) {
+        if(loginService.loginUser(username, password)) {
             loginResponse = "Login Successful";
         }
 

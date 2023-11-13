@@ -19,6 +19,7 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.time.Duration;
 import java.util.Arrays;
+import java.util.Map;
 
 @Component(service = { RestClientService.class },
   property = {
@@ -33,10 +34,11 @@ public class RestClientServiceImpl implements RestClientService {
 
     private HttpClient getHttpClient(int... timeout) {
         int connectionTimeout = Arrays.stream(timeout).findFirst()
-                .orElse(CONNECTION_TIMEOUT);
+            .orElse(CONNECTION_TIMEOUT);
 
         return HttpClient.newBuilder()
-            .version(HttpClient.Version.HTTP_2)
+            .version(HttpClient.Version.HTTP_1_1)
+            .followRedirects(HttpClient.Redirect.NORMAL)
             .connectTimeout(Duration.ofSeconds(connectionTimeout))
             .build();
     }
@@ -51,9 +53,15 @@ public class RestClientServiceImpl implements RestClientService {
             .POST(HttpRequest.BodyPublishers.ofString(body));
     }
 
-    private String send(HttpRequest.Builder httpRequestBuilder, String url) {
+    private String send(HttpRequest.Builder httpRequestBuilder, String url, Map<String, String> headers) {
         HttpClient httpClient = getHttpClient();
-        final String API_URL = appConfigurationService.getApiDomain().concat(url);
+        final String API_URL = appConfigurationService.getApiBaseUrl().concat(url);
+        
+        if (headers != null) {
+            for (Map.Entry<String, String> entry : headers.entrySet()) {
+                httpRequestBuilder = httpRequestBuilder.header(entry.getKey(), entry.getValue());
+            }
+        }
 
         HttpRequest httpRequest = httpRequestBuilder
             .uri(URI.create(API_URL))
@@ -87,16 +95,16 @@ public class RestClientServiceImpl implements RestClientService {
     }
 
     @Override
-    public <T> T get(String url, Class<T> type) {
+    public <T> T get(String url, Map<String, String> headers, Class<T> type) {
         HttpRequest.Builder httpRequestBuilder = get();
-        String response = send(httpRequestBuilder, url);
+        String response = send(httpRequestBuilder, url, headers);
         return map(response, type);
     }
 
     @Override
-    public <T> T post(String url, String body, Class<T> type) {
+    public <T> T post(String url, String body, Map<String, String> headers, Class<T> type) {
         HttpRequest.Builder httpRequestBuilder = post(body);
-        String response = send(httpRequestBuilder, url);
+        String response = send(httpRequestBuilder, url, headers);
         return map(response, type);
     }
 }

@@ -17,11 +17,15 @@ public class AppConfigurationServiceImplTest {
     @Test
     public void testAppConfigurationService() {
         Map<String, Object> properties = new HashMap<>();
-        properties.put("api.domain", "https://www.google.com");
+        properties.put("api.baseurl", "https://www.google.com");
+        properties.put("client.id", "XXX");
+        properties.put("redirect.uri", "ZZZ");
 
         AppConfigurationService appConfigurationService = osgiContext.registerInjectActivateService(
             new AppConfigurationServiceImpl(), properties);
 
-        Assertions.assertEquals("https://www.google.com", appConfigurationService.getApiDomain());
+        Assertions.assertEquals("https://www.google.com", appConfigurationService.getApiBaseUrl());
+        Assertions.assertEquals("XXX", appConfigurationService.getClientId());
+        Assertions.assertEquals("ZZZ", appConfigurationService.getRedirectUri());
     }
 }

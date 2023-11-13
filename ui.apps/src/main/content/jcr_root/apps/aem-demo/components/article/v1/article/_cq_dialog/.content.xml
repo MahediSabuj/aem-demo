@@ -153,6 +153,11 @@
                           </cui>
                         </uiSettings>
                       </articleDescription>
+                      <articleAuthor jcr:primaryType="nt:unstructured"
+                        sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                        fieldDescription="Author of the Article"
+                        fieldLabel="Article Author"
+                        name="./articleAuthor"/>
                       <articleTags cq:hideOnEdit="{Boolean}false"
                          cq:showOnCreate="{Boolean}true"
                          jcr:primaryType="nt:unstructured"
