@@ -9,13 +9,18 @@ import com.aem.demo.core.models.authentication.impl.AuthorizeModelImpl;
 import com.aem.demo.core.models.authentication.impl.TokenModelImpl;
 import com.aem.demo.core.models.authentication.impl.UserInfoModelImpl;
 import com.aem.demo.core.services.AppConfigurationService;
+import com.day.crx.security.token.TokenUtil;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.sling.api.SlingHttpServletRequest;
+import org.apache.sling.api.SlingHttpServletResponse;
+import org.apache.sling.jcr.api.SlingRepository;
 import org.osgi.framework.Constants;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.jcr.RepositoryException;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.util.Base64;
@@ -38,6 +43,9 @@ public class LoginServiceImpl implements LoginService {
 
     @Reference
     private RestClientService restClientService;
+
+    @Reference
+    private SlingRepository slingRepository;
 
     private String getBasicAuthenticationHeader(String username, String password) {
         String valueToEncode = username + ":" + password;
@@ -97,7 +105,12 @@ public class LoginServiceImpl implements LoginService {
         return tokenModel.getAccessToken();
     }
 
-    private UserInfoModel getUserInfo(String accessToken) {
+    public String getAccessToken(String username, String password) {
+        String code = getAuthorizeCode(username, password);
+        return getAccessToken(code);
+    }
+
+    public UserInfoModel getUserInfo(String accessToken) {
         Map<String, String> headers = new HashMap<>();
         headers.put("Content-Type", "application/json");
         headers.put("Authorization", "Bearer " + accessToken);
@@ -111,10 +124,14 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
-    public boolean loginUser(String username, String password) {
-        String authenticationCode = getAuthorizeCode(username, password);
-        String accessToken = getAccessToken(authenticationCode);
-        UserInfoModel userInfoModel = getUserInfo(accessToken);
-        return StringUtils.isNotBlank(userInfoModel.getUsername());
+    public boolean loginUser(SlingHttpServletRequest request, SlingHttpServletResponse response, String userId) {
+        try {
+            TokenUtil.createCredentials(
+                request, response, slingRepository, userId, true);
+        } catch (RepositoryException | IllegalArgumentException ex) {
+            return false;
+        }
+
+        return true;
     }
 }

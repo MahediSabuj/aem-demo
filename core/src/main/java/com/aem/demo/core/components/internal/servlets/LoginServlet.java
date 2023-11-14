@@ -1,6 +1,10 @@
 package com.aem.demo.core.components.internal.servlets;
 
+import com.aem.demo.core.components.services.FormatterService;
 import com.aem.demo.core.components.services.LoginService;
+import com.aem.demo.core.models.authentication.UserInfoModel;
+import com.aem.demo.core.utils.SessionUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.sling.api.SlingHttpServletRequest;
 import org.apache.sling.api.SlingHttpServletResponse;
 import org.apache.sling.api.request.RequestParameterMap;
@@ -13,7 +17,6 @@ import org.osgi.service.component.propertytypes.ServiceDescription;
 
 import javax.servlet.Servlet;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.Objects;
 
 @Component(service = { Servlet.class })
@@ -27,6 +30,9 @@ public class LoginServlet extends SlingAllMethodsServlet {
     @Reference
     private LoginService loginService;
 
+    @Reference
+    private FormatterService formatterService;
+
     private String getParameter(RequestParameterMap map, String param) {
         return Objects.requireNonNull(map.getValue(param)).getString();
     }
@@ -37,17 +43,20 @@ public class LoginServlet extends SlingAllMethodsServlet {
         String username = getParameter(map, "username");
         String password = getParameter(map, "password");
 
-        String loginResponse = "Invalid Credentials";
-
-        if(loginService.loginUser(username, password)) {
-            loginResponse = "Login Successful";
+        String accessToken = loginService.getAccessToken(username, password);
+        if (StringUtils.isNotBlank(accessToken)) {
+            UserInfoModel userInfoModel = loginService.getUserInfo(accessToken);
+            if (StringUtils.isNotBlank(userInfoModel.getUsername())) {
+                if (loginService.loginUser(request, response, "aem-demo-login-user")) {
+                    SessionUtils session = new SessionUtils(request);
+                    session.setAttribute("accessToken", accessToken);
+                    session.setAttribute("userInfo", userInfoModel);
+                }
+            }
         }
 
-        try(PrintWriter printWriter = response.getWriter()) {
-            response.setContentType("application/json");
-            response.setCharacterEncoding("UTF-8");
-
-            printWriter.println(loginResponse);
-        }
+        String URL = formatterService.getFormattedLink(
+            "/content/aem-demo/us/en", request.getResourceResolver());
+        response.sendRedirect(URL);
     }
 }

@@ -1,9 +1,10 @@
 package com.aem.demo.core.components.internal.servlets;
 
+import com.aem.demo.core.components.services.FormatterService;
 import com.aem.demo.core.components.services.LoginService;
+import com.aem.demo.core.models.authentication.impl.UserInfoModelImpl;
 import io.wcm.testing.mock.aem.junit5.AemContext;
 import io.wcm.testing.mock.aem.junit5.AemContextExtension;
-import org.apache.sling.api.request.RequestParameterMap;
 import org.apache.sling.testing.mock.sling.servlet.MockSlingHttpServletRequest;
 import org.apache.sling.testing.mock.sling.servlet.MockSlingHttpServletResponse;
 import org.junit.jupiter.api.Assertions;
@@ -24,6 +25,9 @@ public class LoginServletTest {
     @Mock
     private LoginService loginService;
 
+    @Mock
+    private FormatterService formatterService;
+
     @InjectMocks
     private LoginServlet loginServlet;
 
@@ -32,8 +36,21 @@ public class LoginServletTest {
         MockitoAnnotations.openMocks(this);
 
         Mockito.when(
-            loginService.loginUser(Mockito.anyString(), Mockito.anyString())
+            loginService.getAccessToken(Mockito.anyString(), Mockito.anyString())
+        ).thenReturn("XXXX");
+
+        Mockito.when(
+            loginService.getUserInfo(Mockito.anyString())
+        ).thenReturn(new UserInfoModelImpl(
+            "AEM", "User", "sabuj@gmail.com", "sabuj@ms-29.com"));
+
+        Mockito.when(
+            loginService.loginUser(Mockito.any(), Mockito.any(), Mockito.anyString())
         ).thenReturn(true);
+
+        Mockito.when(formatterService.getFormattedLink(
+            Mockito.anyString(), Mockito.any())
+        ).thenReturn("/content/aem-demo/us/en.html");
     }
 
     @Test
@@ -47,6 +64,6 @@ public class LoginServletTest {
         request.setParameterMap(params);
 
         loginServlet.doPost(request, response);
-        Assertions.assertEquals("Login Successful", response.getOutputAsString().trim());
+        Assertions.assertEquals(302, response.getStatus());
     }
 }
