@@ -1,0 +1,22 @@
+<div data-sly-use.userNavigation="com.aem.demo.core.components.models.UserNavigation"
+    class="usernavigation__inner">
+    <div>
+        <ul>
+            <li data-sly-test.loggedInUser="${userNavigation.username}">
+                ${loggedInUser}
+                <ul>
+                    <li>
+                        <a href="${userNavigation.logoutUrl @ context = 'uri'}">
+                            ${userNavigation.logoutText}
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li data-sly-test="${!loggedInUser}">
+                <a href="${userNavigation.loginUrl @ context = 'uri'}">
+                    ${userNavigation.loginText}
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>

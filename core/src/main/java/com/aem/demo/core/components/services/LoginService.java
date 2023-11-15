@@ -10,4 +10,6 @@ public interface LoginService {
     UserInfoModel getUserInfo(String accessToken);
 
     boolean loginUser(SlingHttpServletRequest request, SlingHttpServletResponse response, String userId);
+
+    UserInfoModel isLoggedIn(SlingHttpServletRequest request);
 }

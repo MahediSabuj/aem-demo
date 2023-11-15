@@ -9,6 +9,7 @@ import com.aem.demo.core.models.authentication.impl.AuthorizeModelImpl;
 import com.aem.demo.core.models.authentication.impl.TokenModelImpl;
 import com.aem.demo.core.models.authentication.impl.UserInfoModelImpl;
 import com.aem.demo.core.services.AppConfigurationService;
+import com.aem.demo.core.utils.SessionUtils;
 import com.day.crx.security.token.TokenUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.sling.api.SlingHttpServletRequest;
@@ -21,6 +22,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.jcr.RepositoryException;
+import javax.jcr.Session;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.util.Base64;
@@ -133,5 +135,21 @@ public class LoginServiceImpl implements LoginService {
         }
 
         return true;
+    }
+
+    @Override
+    public UserInfoModel isLoggedIn(SlingHttpServletRequest request) {
+        SessionUtils sessionUtils = new SessionUtils(request);
+        Object accessTokenValue = sessionUtils.getAttribute("accessToken");
+        String accessToken = accessTokenValue != null ? accessTokenValue.toString() : "";
+
+        if (StringUtils.isNotBlank(accessToken)) {
+            Session session = request.getResourceResolver().adaptTo(Session.class);
+            if (session != null && StringUtils.isNotBlank(session.getUserID())) {
+                return (UserInfoModel) sessionUtils.getAttribute("userInfo");
+            }
+        }
+
+        return null;
     }
 }

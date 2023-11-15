@@ -21,7 +21,7 @@ public class ArticleTest {
     public void setup() {
         MockitoAnnotations.openMocks(this);
 
-        context.load().json("/com/aem/demo/core/components/article.json", "/content");
+        context.load().json("/com/aem/demo/core/components/internal/models/v1/article.json", "/content");
         context.currentResource("/content/article");
     }
 
