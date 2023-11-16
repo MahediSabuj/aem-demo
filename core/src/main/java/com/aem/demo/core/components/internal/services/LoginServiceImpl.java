@@ -9,6 +9,7 @@ import com.aem.demo.core.models.authentication.impl.AuthorizeModelImpl;
 import com.aem.demo.core.models.authentication.impl.TokenModelImpl;
 import com.aem.demo.core.models.authentication.impl.UserInfoModelImpl;
 import com.aem.demo.core.services.AppConfigurationService;
+import com.aem.demo.core.utils.ConstantUtils;
 import com.aem.demo.core.utils.SessionUtils;
 import com.day.crx.security.token.TokenUtil;
 import org.apache.commons.lang3.StringUtils;
@@ -145,7 +146,8 @@ public class LoginServiceImpl implements LoginService {
 
         if (StringUtils.isNotBlank(accessToken)) {
             Session session = request.getResourceResolver().adaptTo(Session.class);
-            if (session != null && StringUtils.isNotBlank(session.getUserID())) {
+            String userId = session != null ? session.getUserID() : "";
+            if (session != null && userId != null && userId.equals(ConstantUtils.AEM_SERVICE_USER)) {
                 return (UserInfoModel) sessionUtils.getAttribute("userInfo");
             }
         }

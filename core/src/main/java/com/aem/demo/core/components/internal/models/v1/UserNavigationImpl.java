@@ -61,7 +61,7 @@ public class UserNavigationImpl implements UserNavigation {
 
     @PostConstruct
     public void init() {
-        final Page loginPage = pageManager.getContainingPage(loginPagePath);
+        final Page loginPage = pageManager.getPage(loginPagePath);
         if (loginPage != null) {
             loginText = loginPage.getTitle();
             loginUrl = formatterService.getFormattedLink(loginPage.getPath(), resourceResolver);

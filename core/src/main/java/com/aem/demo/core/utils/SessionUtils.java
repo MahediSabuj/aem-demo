@@ -23,4 +23,8 @@ public class SessionUtils {
             .map(session -> session.getAttribute(key))
             .orElse(null);
     }
+
+    public void invalidate() {
+        httpSession.invalidate();
+    }
 }

@@ -3,6 +3,7 @@ package com.aem.demo.core.components.internal.servlets;
 import com.aem.demo.core.components.services.FormatterService;
 import com.aem.demo.core.components.services.LoginService;
 import com.aem.demo.core.models.authentication.UserInfoModel;
+import com.aem.demo.core.utils.ConstantUtils;
 import com.aem.demo.core.utils.SessionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.sling.api.SlingHttpServletRequest;
@@ -10,6 +11,7 @@ import org.apache.sling.api.SlingHttpServletResponse;
 import org.apache.sling.api.request.RequestParameterMap;
 import org.apache.sling.api.servlets.HttpConstants;
 import org.apache.sling.api.servlets.SlingAllMethodsServlet;
+import org.apache.sling.servlets.annotations.SlingServletPaths;
 import org.apache.sling.servlets.annotations.SlingServletResourceTypes;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
@@ -47,7 +49,7 @@ public class LoginServlet extends SlingAllMethodsServlet {
         if (StringUtils.isNotBlank(accessToken)) {
             UserInfoModel userInfoModel = loginService.getUserInfo(accessToken);
             if (StringUtils.isNotBlank(userInfoModel.getUsername())) {
-                if (loginService.loginUser(request, response, "aem-demo-login-user")) {
+                if (loginService.loginUser(request, response, ConstantUtils.AEM_SERVICE_USER)) {
                     SessionUtils session = new SessionUtils(request);
                     session.setAttribute("accessToken", accessToken);
                     session.setAttribute("userInfo", userInfoModel);
