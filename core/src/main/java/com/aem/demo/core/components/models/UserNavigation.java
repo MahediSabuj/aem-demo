@@ -4,13 +4,13 @@ import org.osgi.annotation.versioning.ConsumerType;
 
 @ConsumerType
 public interface UserNavigation {
-    String loginText();
+    String getLoginText();
 
-    String loginUrl();
+    String getLoginUrl();
 
-    String logoutText();
+    String getLogoutText();
 
-    String logoutUrl();
+    String getLogoutUrl();
 
     String getUsername();
 }

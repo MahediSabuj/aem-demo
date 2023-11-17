@@ -69,23 +69,23 @@ public class UserNavigationImpl implements UserNavigation {
     }
 
     @Override
-    public String loginText() {
+    public String getLoginText() {
         return loginText;
     }
 
     @Override
-    public String loginUrl() {
+    public String getLoginUrl() {
         return loginUrl;
     }
 
     @Override
-    public String logoutText() {
+    public String getLogoutText() {
         return logoutText;
     }
 
     @Override
-    public String logoutUrl() {
-        final String URL = String.format("%s.logout.html", resource.getPath());
+    public String getLogoutUrl() {
+        final String URL = String.format("%s.logout", resource.getPath());
         return formatterService.getFormattedLink(URL, resourceResolver);
     }
 

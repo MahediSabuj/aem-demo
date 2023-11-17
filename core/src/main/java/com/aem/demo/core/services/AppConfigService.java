@@ -1,6 +1,6 @@
 package com.aem.demo.core.services;
 
-public interface AppConfigurationService {
+public interface AppConfigService {
     String getApiBaseUrl();
 
     String getClientId();

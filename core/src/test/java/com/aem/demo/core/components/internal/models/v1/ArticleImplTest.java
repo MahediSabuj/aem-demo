@@ -9,24 +9,19 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.MockitoAnnotations;
 
 import java.util.Objects;
 
 @ExtendWith(AemContextExtension.class)
-public class ArticleTest {
-    final AemContext context = new AemContext();
-
+public class ArticleImplTest {
     @BeforeEach
-    public void setup() {
-        MockitoAnnotations.openMocks(this);
-
+    public void setup(AemContext context) {
         context.load().json("/com/aem/demo/core/components/internal/models/v1/article.json", "/content");
         context.currentResource("/content/article");
     }
 
     @Test
-    public void testArticle() {
+    public void testArticle(AemContext context) {
         context.addModelsForPackage("com.aem.demo.core.models");
 
         ModelFactory modelFactory = context.getService(ModelFactory.class);

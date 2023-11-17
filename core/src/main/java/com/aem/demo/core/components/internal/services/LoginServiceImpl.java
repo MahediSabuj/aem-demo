@@ -8,8 +8,8 @@ import com.aem.demo.core.models.authentication.UserInfoModel;
 import com.aem.demo.core.models.authentication.impl.AuthorizeModelImpl;
 import com.aem.demo.core.models.authentication.impl.TokenModelImpl;
 import com.aem.demo.core.models.authentication.impl.UserInfoModelImpl;
-import com.aem.demo.core.services.AppConfigurationService;
-import com.aem.demo.core.utils.ConstantUtils;
+import com.aem.demo.core.services.AppConfigService;
+import com.aem.demo.core.utils.AppConstants;
 import com.aem.demo.core.utils.SessionUtils;
 import com.day.crx.security.token.TokenUtil;
 import org.apache.commons.lang3.StringUtils;
@@ -19,8 +19,6 @@ import org.apache.sling.jcr.api.SlingRepository;
 import org.osgi.framework.Constants;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import javax.jcr.RepositoryException;
 import javax.jcr.Session;
@@ -37,12 +35,10 @@ import java.util.stream.Collectors;
   }
 )
 public class LoginServiceImpl implements LoginService {
-    private static final Logger LOG = LoggerFactory.getLogger(LoginService.class);
-
     private static final String RESPONSE_TYPE = "code_credentials";
 
     @Reference
-    private AppConfigurationService appConfigurationService;
+    private AppConfigService appConfigService;
 
     @Reference
     private RestClientService restClientService;
@@ -63,8 +59,8 @@ public class LoginServiceImpl implements LoginService {
     }
 
     private String getRedirectUri() {
-        return appConfigurationService.getApiBaseUrl()
-            .concat(appConfigurationService.getRedirectUri());
+        return appConfigService.getApiBaseUrl()
+            .concat(appConfigService.getRedirectUri());
     }
 
     private String getAuthorizeCode(String username, String password) {
@@ -75,7 +71,7 @@ public class LoginServiceImpl implements LoginService {
 
         Map<String, String> params = new HashMap<>();
         params.put("response_type", RESPONSE_TYPE);
-        params.put("client_id", appConfigurationService.getClientId());
+        params.put("client_id", appConfigService.getClientId());
         params.put("redirect_uri", getRedirectUri());
 
         AuthorizeModel authorizeModel = restClientService.post(
@@ -92,7 +88,7 @@ public class LoginServiceImpl implements LoginService {
         Map<String, String> params = new HashMap<>();
         params.put("code", code);
         params.put("grant_type", "authorization_code");
-        params.put("client_id", appConfigurationService.getClientId());
+        params.put("client_id", appConfigService.getClientId());
         params.put("redirect_uri", getRedirectUri());
 
         Map<String, String> headers = new HashMap<>();
@@ -146,9 +142,11 @@ public class LoginServiceImpl implements LoginService {
 
         if (StringUtils.isNotBlank(accessToken)) {
             Session session = request.getResourceResolver().adaptTo(Session.class);
-            String userId = session != null ? session.getUserID() : "";
-            if (session != null && userId != null && userId.equals(ConstantUtils.AEM_SERVICE_USER)) {
-                return (UserInfoModel) sessionUtils.getAttribute("userInfo");
+            if (session != null) {
+                String userId = session.getUserID();
+                if (userId != null && userId.equals(AppConstants.AEM_SERVICE_USER)) {
+                    return (UserInfoModel) sessionUtils.getAttribute("userInfo");
+                }
             }
         }
 

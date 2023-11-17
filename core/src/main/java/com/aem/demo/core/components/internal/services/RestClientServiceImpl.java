@@ -1,7 +1,7 @@
 package com.aem.demo.core.components.internal.services;
 
 import com.aem.demo.core.components.services.RestClientService;
-import com.aem.demo.core.services.AppConfigurationService;
+import com.aem.demo.core.services.AppConfigService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -30,7 +30,7 @@ public class RestClientServiceImpl implements RestClientService {
     private static final int CONNECTION_TIMEOUT = 10;
 
     @Reference
-    AppConfigurationService appConfigurationService;
+    AppConfigService appConfigService;
 
     private HttpClient getHttpClient(int... timeout) {
         int connectionTimeout = Arrays.stream(timeout).findFirst()
@@ -55,7 +55,7 @@ public class RestClientServiceImpl implements RestClientService {
 
     private String send(HttpRequest.Builder httpRequestBuilder, String url, Map<String, String> headers) {
         HttpClient httpClient = getHttpClient();
-        final String API_URL = appConfigurationService.getApiBaseUrl().concat(url);
+        final String API_URL = appConfigService.getApiBaseUrl().concat(url);
         
         if (headers != null) {
             for (Map.Entry<String, String> entry : headers.entrySet()) {

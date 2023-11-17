@@ -16,16 +16,14 @@ import java.util.Objects;
 
 @ExtendWith(AemContextExtension.class)
 public class MegaMenuImplTest {
-    private AemContext context = new AemContext();
-
     @BeforeEach
-    public void setup() {
+    public void setup(AemContext context) {
         context.load().json("/com/aem/demo/core/components/internal/models/v1/megamenu.json", "/content");
         context.currentResource("/content/aem-demo/us/en/mobile/service/jcr:content/root/container/megamenu");
     }
 
     @Test
-    public void testMegaMenu() {
+    public void testMegaMenu(AemContext context) {
         context.addModelsForPackage("com.aem.demo.core.models");
 
         ModelFactory modelFactory = context.getService(ModelFactory.class);

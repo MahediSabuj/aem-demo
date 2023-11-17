@@ -6,7 +6,7 @@ import com.aem.demo.core.models.authentication.UserInfoModel;
 import com.aem.demo.core.models.authentication.impl.AuthorizeModelImpl;
 import com.aem.demo.core.models.authentication.impl.TokenModelImpl;
 import com.aem.demo.core.models.authentication.impl.UserInfoModelImpl;
-import com.aem.demo.core.services.AppConfigurationService;
+import com.aem.demo.core.services.AppConfigService;
 import io.wcm.testing.mock.aem.junit5.AemContextExtension;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -31,7 +31,7 @@ public class RestClientServiceImplTest {
     private HttpClient httpClient;
 
     @Mock
-    private AppConfigurationService appConfigurationService;
+    private AppConfigService appConfigService;
 
     @Mock
     private HttpClient.Builder httpClientBuilder;
@@ -46,7 +46,7 @@ public class RestClientServiceImplTest {
     public void setup() throws IOException, InterruptedException {
         MockitoAnnotations.openMocks(this);
 
-        Mockito.when(appConfigurationService.getApiBaseUrl()).thenReturn("https://www.google.com");
+        Mockito.when(appConfigService.getApiBaseUrl()).thenReturn("https://www.google.com");
         Mockito.when(httpClientBuilder.version(HttpClient.Version.HTTP_1_1)).thenReturn(httpClientBuilder);
         Mockito.when(httpClientBuilder.followRedirects(HttpClient.Redirect.NORMAL)).thenReturn(httpClientBuilder);
         Mockito.when(httpClientBuilder.connectTimeout(Duration.ofSeconds(10))).thenReturn(httpClientBuilder);
