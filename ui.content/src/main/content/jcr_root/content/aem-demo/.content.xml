@@ -12,4 +12,5 @@
     sling:redirectStatus="{Long}302"
     sling:resourceType="aem-demo/components/page" />
     <us/>
+    <de/>
 </jcr:root>
