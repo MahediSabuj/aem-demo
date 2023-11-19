@@ -81,7 +81,7 @@ public class LoginServiceImpl implements LoginService {
             AuthorizeModelImpl.class
         );
 
-        return authorizeModel.getCode();
+        return authorizeModel != null ? authorizeModel.getCode() : StringUtils.EMPTY;
     }
 
     private String getAccessToken(String code) {
@@ -101,12 +101,12 @@ public class LoginServiceImpl implements LoginService {
             TokenModelImpl.class
         );
 
-        return tokenModel.getAccessToken();
+        return tokenModel != null ? tokenModel.getAccessToken() : StringUtils.EMPTY;
     }
 
     public String getAccessToken(String username, String password) {
         String code = getAuthorizeCode(username, password);
-        return getAccessToken(code);
+        return StringUtils.isNotBlank(code) ? getAccessToken(code) : StringUtils.EMPTY;
     }
 
     public UserInfoModel getUserInfo(String accessToken) {
