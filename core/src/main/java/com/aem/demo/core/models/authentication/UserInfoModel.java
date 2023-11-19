@@ -8,6 +8,4 @@ public interface UserInfoModel {
     String getEmail();
 
     String getUsername();
-
-    String getCountry();
 }

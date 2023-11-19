@@ -75,7 +75,6 @@ public class RestClientServiceImplTest {
             Assertions.assertEquals("User", userInfoModel.getLastName());
             Assertions.assertEquals("mahedi.sabuj@gmail.com", userInfoModel.getUsername());
             Assertions.assertEquals("sabuj.ict.mbstu@gmail.com", userInfoModel.getEmail());
-            Assertions.assertNull(userInfoModel.getCountry());
         }
     }
 
