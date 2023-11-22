@@ -2,7 +2,6 @@ package com.aem.demo.core.components.internal.models.v1;
 
 import com.adobe.cq.export.json.ExporterConstants;
 import com.aem.demo.core.components.models.UserNavigation;
-import com.aem.demo.core.components.services.FormatterService;
 import com.aem.demo.core.components.services.LoginService;
 import com.aem.demo.core.models.authentication.UserInfoModel;
 import com.day.cq.wcm.api.Page;
@@ -51,9 +50,6 @@ public class UserNavigationImpl implements UserNavigation {
     private PageManager pageManager;
 
     @OSGiService
-    private FormatterService formatterService;
-
-    @OSGiService
     private LoginService loginService;
 
     private String loginText;
@@ -64,7 +60,7 @@ public class UserNavigationImpl implements UserNavigation {
         final Page loginPage = pageManager.getPage(loginPagePath);
         if (loginPage != null) {
             loginText = loginPage.getTitle();
-            loginUrl = formatterService.getFormattedLink(loginPage.getPath(), resourceResolver);
+            loginUrl = loginPage.getPath();
         }
     }
 
@@ -85,8 +81,7 @@ public class UserNavigationImpl implements UserNavigation {
 
     @Override
     public String getLogoutUrl() {
-        final String URL = String.format("%s.logout", resource.getPath());
-        return formatterService.getFormattedLink(URL, resourceResolver);
+        return String.format("%s.logout", resource.getPath());
     }
 
     @Override

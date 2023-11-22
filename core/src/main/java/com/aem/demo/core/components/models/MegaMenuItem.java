@@ -16,7 +16,7 @@ public interface MegaMenuItem {
 
     String getTitle();
 
-    Link<Page> getLink();
+    String getLink();
 
     List<MegaMenuItem> getChildren();
 }

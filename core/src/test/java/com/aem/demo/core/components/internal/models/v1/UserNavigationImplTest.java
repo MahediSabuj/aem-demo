@@ -74,10 +74,9 @@ public class UserNavigationImplTest {
         Assertions.assertEquals("Logout", userNavigation.getLogoutText());
         Assertions.assertEquals("AEM User", userNavigation.getUsername());
 
+        Assertions.assertEquals(LOGIN_PAGE, userNavigation.getLoginUrl());
         Assertions.assertEquals(
-           LOGIN_PAGE + AppConstants.HTML_EXTENSION, userNavigation.getLoginUrl());
-        Assertions.assertEquals(
-           userNavigationPath + LOGOUT_SELECTOR + AppConstants.HTML_EXTENSION,
+           userNavigationPath + LOGOUT_SELECTOR,
             userNavigation.getLogoutUrl());
     }
 

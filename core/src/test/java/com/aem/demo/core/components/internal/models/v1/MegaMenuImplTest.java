@@ -51,7 +51,7 @@ public class MegaMenuImplTest {
         Assertions.assertTrue(megaMenuItems.size() > 0);
 
         MegaMenuItem mobileMenuItem = megaMenuItems.get(0);
-        Assertions.assertNull(mobileMenuItem.getLink());
+        Assertions.assertNotNull(mobileMenuItem.getLink());
         Assertions.assertTrue(mobileMenuItem.isActive());
         Assertions.assertFalse(mobileMenuItem.isCurrent());
         Assertions.assertEquals("mobile", mobileMenuItem.getName());

@@ -52,9 +52,6 @@ public class MegaMenuImpl implements MegaMenu {
     @ValueMapValue
     String id;
 
-    @Self
-    private LinkManager linkManager;
-
     @ScriptVariable
     private Page currentPage;
 
@@ -94,7 +91,7 @@ public class MegaMenuImpl implements MegaMenu {
         boolean current = checkCurrent(page);
         boolean selected = checkSelected(page, current);
 
-        return new MegaMenuItemImpl(page, selected, current, children, linkManager);
+        return new MegaMenuItemImpl(page, selected, current, children);
     }
 
     @Override
