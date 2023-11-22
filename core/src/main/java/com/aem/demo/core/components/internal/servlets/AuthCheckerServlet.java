@@ -15,7 +15,7 @@ import javax.servlet.Servlet;
 @Component(service = { Servlet.class })
 @SlingServletPaths("/bin/permissionCheck")
 public class AuthCheckerServlet extends SlingSafeMethodsServlet {
-    private final static Logger LOG = LoggerFactory.getLogger(AuthCheckerServlet.class);
+    private final Logger LOG = LoggerFactory.getLogger(AuthCheckerServlet.class);
 
     @Override
     public void doHead(SlingHttpServletRequest request, SlingHttpServletResponse response) {

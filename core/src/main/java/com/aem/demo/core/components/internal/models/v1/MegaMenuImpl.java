@@ -9,6 +9,7 @@ import com.aem.demo.core.filters.PageFilter;
 import com.day.cq.wcm.api.Page;
 import com.day.cq.wcm.api.PageManager;
 import org.apache.sling.api.SlingHttpServletRequest;
+import org.apache.sling.api.resource.LoginException;
 import org.apache.sling.api.resource.ResourceResolver;
 import org.apache.sling.models.annotations.Default;
 import org.apache.sling.models.annotations.DefaultInjectionStrategy;
@@ -18,6 +19,8 @@ import org.apache.sling.models.annotations.injectorspecific.OSGiService;
 import org.apache.sling.models.annotations.injectorspecific.ScriptVariable;
 import org.apache.sling.models.annotations.injectorspecific.Self;
 import org.apache.sling.models.annotations.injectorspecific.ValueMapValue;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.Collections;
 import java.util.Iterator;
@@ -35,6 +38,8 @@ import java.util.stream.StreamSupport;
   extensions = ExporterConstants.SLING_MODEL_EXTENSION
 )
 public class MegaMenuImpl implements MegaMenu {
+    private final Logger LOG = LoggerFactory.getLogger(this.getClass());
+
     protected static final String RESOURCE_TYPE = "aem-demo/components/megamenu/v1/megamenu";
 
     @ValueMapValue
@@ -95,14 +100,18 @@ public class MegaMenuImpl implements MegaMenu {
     @Override
     public List<MegaMenuItem> getItems() {
         if(this.items == null) {
-            ResourceResolver resolver = resolverService.getResourceResolver();
-            PageManager pageManager = resolver.adaptTo(PageManager.class);
-            this.navigationRootPage = pageManager.getPage(navigationRoot);
-            this.items = getRootItems(navigationRootPage)
-                .stream().map(page -> createNavigationItem(page, getItems(page)))
-                .collect(Collectors.toList());
+            try {
+                ResourceResolver resolver = resolverService.getResourceResolver();
+                PageManager pageManager = resolver.adaptTo(PageManager.class);
+                this.navigationRootPage = pageManager.getPage(navigationRoot);
+                this.items = getRootItems(navigationRootPage)
+                    .stream().map(page -> createNavigationItem(page, getItems(page)))
+                    .collect(Collectors.toList());
+            } catch (LoginException e) {
+                LOG.error("Error in Resource Resolver");
+            }
         }
-        return Collections.unmodifiableList(items);
+        return items != null ? Collections.unmodifiableList(items) : null;
     }
 
     @Override
