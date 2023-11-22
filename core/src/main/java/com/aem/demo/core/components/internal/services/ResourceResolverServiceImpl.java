@@ -18,7 +18,7 @@ import java.util.Map;
     Constants.SERVICE_DESCRIPTION + "=Resource Resolver Service"
 })
 public class ResourceResolverServiceImpl implements ResourceResolverService {
-    private final static Logger LOG = LoggerFactory.getLogger(ResourceResolverServiceImpl.class);
+    private final Logger LOG = LoggerFactory.getLogger(this.getClass());
 
     @Reference
     private ResourceResolverFactory resolverFactory;
@@ -29,7 +29,7 @@ public class ResourceResolverServiceImpl implements ResourceResolverService {
         params.put(resolverFactory.SUBSERVICE, "writeService");
 
         try {
-            return resolverFactory.getResourceResolver(params);
+            return resolverFactory.getServiceResourceResolver(params);
         } catch (LoginException ex) {
             LOG.error("Error in getting Resource Resolver for Service User");
         }

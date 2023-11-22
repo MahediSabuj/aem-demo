@@ -2,6 +2,7 @@ package com.aem.demo.core.components.internal.models.v1;
 
 import com.aem.demo.core.components.models.MegaMenu;
 import com.aem.demo.core.components.models.MegaMenuItem;
+import com.aem.demo.core.components.services.ResourceResolverService;
 import io.wcm.testing.mock.aem.junit5.AemContext;
 import io.wcm.testing.mock.aem.junit5.AemContextExtension;
 import org.apache.sling.models.factory.ModelFactory;
@@ -10,14 +11,22 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mock;
+import org.mockito.Mockito;
+import org.mockito.MockitoAnnotations;
 
 import java.util.List;
 import java.util.Objects;
 
 @ExtendWith(AemContextExtension.class)
 public class MegaMenuImplTest {
+    @Mock
+    private ResourceResolverService resolverService;
+
     @BeforeEach
     public void setup(AemContext context) {
+        MockitoAnnotations.openMocks(this);
+
         context.load().json("/com/aem/demo/core/components/internal/models/v1/megamenu.json", "/content");
         context.currentResource("/content/aem-demo/us/en/mobile/service/jcr:content/root/container/megamenu");
     }
@@ -25,6 +34,9 @@ public class MegaMenuImplTest {
     @Test
     public void testMegaMenu(AemContext context) {
         context.addModelsForPackage("com.aem.demo.core.models");
+        context.registerService(ResourceResolverService.class, resolverService);
+
+        Mockito.when(resolverService.getResourceResolver()).thenReturn(context.resourceResolver());
 
         ModelFactory modelFactory = context.getService(ModelFactory.class);
         MockSlingHttpServletRequest request = context.request();

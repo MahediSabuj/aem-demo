@@ -4,13 +4,17 @@ import com.adobe.cq.export.json.ExporterConstants;
 import com.adobe.cq.wcm.core.components.commons.link.LinkManager;
 import com.aem.demo.core.components.models.MegaMenu;
 import com.aem.demo.core.components.models.MegaMenuItem;
+import com.aem.demo.core.components.services.ResourceResolverService;
 import com.aem.demo.core.filters.PageFilter;
 import com.day.cq.wcm.api.Page;
+import com.day.cq.wcm.api.PageManager;
 import org.apache.sling.api.SlingHttpServletRequest;
+import org.apache.sling.api.resource.ResourceResolver;
 import org.apache.sling.models.annotations.Default;
 import org.apache.sling.models.annotations.DefaultInjectionStrategy;
 import org.apache.sling.models.annotations.Exporter;
 import org.apache.sling.models.annotations.Model;
+import org.apache.sling.models.annotations.injectorspecific.OSGiService;
 import org.apache.sling.models.annotations.injectorspecific.ScriptVariable;
 import org.apache.sling.models.annotations.injectorspecific.Self;
 import org.apache.sling.models.annotations.injectorspecific.ValueMapValue;
@@ -48,6 +52,9 @@ public class MegaMenuImpl implements MegaMenu {
 
     @ScriptVariable
     private Page currentPage;
+
+    @OSGiService
+    private ResourceResolverService resolverService;
 
     private List<MegaMenuItem> items;
     private Page navigationRootPage;
@@ -88,7 +95,9 @@ public class MegaMenuImpl implements MegaMenu {
     @Override
     public List<MegaMenuItem> getItems() {
         if(this.items == null) {
-            this.navigationRootPage = currentPage.getPageManager().getPage(navigationRoot);
+            ResourceResolver resolver = resolverService.getResourceResolver();
+            PageManager pageManager = resolver.adaptTo(PageManager.class);
+            this.navigationRootPage = pageManager.getPage(navigationRoot);
             this.items = getRootItems(navigationRootPage)
                 .stream().map(page -> createNavigationItem(page, getItems(page)))
                 .collect(Collectors.toList());
