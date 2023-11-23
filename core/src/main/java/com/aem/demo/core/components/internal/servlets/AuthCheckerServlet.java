@@ -1,5 +1,6 @@
 package com.aem.demo.core.components.internal.servlets;
 
+import org.apache.commons.io.FilenameUtils;
 import org.apache.sling.api.SlingHttpServletRequest;
 import org.apache.sling.api.SlingHttpServletResponse;
 import org.apache.sling.api.servlets.SlingSafeMethodsServlet;
@@ -19,16 +20,17 @@ public class AuthCheckerServlet extends SlingSafeMethodsServlet {
 
     @Override
     public void doHead(SlingHttpServletRequest request, SlingHttpServletResponse response) {
-        final String URI = request.getParameter("uri");
+        String uri = request.getParameter("uri");
+        uri = FilenameUtils.removeExtension(uri);
 
         Session session = request.getResourceResolver().adaptTo(Session.class);
 
         try {
-            session.checkPermission(URI, Session.ACTION_READ);
-            LOG.info("AuthChecker READ Access OK for {}", URI);
+            session.checkPermission(uri, Session.ACTION_READ);
+            LOG.info("AuthChecker READ Access OK for {}", uri);
             response.setStatus(SlingHttpServletResponse.SC_OK);
         } catch (RepositoryException e) {
-            LOG.info("AuthChecker READ Access FORBIDDEN for {}", URI);
+            LOG.info("AuthChecker READ Access FORBIDDEN for {}", uri);
             response.setStatus(SlingHttpServletResponse.SC_FORBIDDEN);
         }
     }
