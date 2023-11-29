@@ -1,7 +1,6 @@
 package com.aem.demo.core.components.internal.models.v1;
 
 import com.adobe.cq.export.json.ExporterConstants;
-import com.adobe.cq.wcm.core.components.commons.link.LinkManager;
 import com.aem.demo.core.components.models.MegaMenu;
 import com.aem.demo.core.components.models.MegaMenuItem;
 import com.aem.demo.core.components.services.ResourceResolverService;
@@ -17,7 +16,6 @@ import org.apache.sling.models.annotations.Exporter;
 import org.apache.sling.models.annotations.Model;
 import org.apache.sling.models.annotations.injectorspecific.OSGiService;
 import org.apache.sling.models.annotations.injectorspecific.ScriptVariable;
-import org.apache.sling.models.annotations.injectorspecific.Self;
 import org.apache.sling.models.annotations.injectorspecific.ValueMapValue;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
