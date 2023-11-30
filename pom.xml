@@ -789,6 +789,13 @@ Bundle-DocURL:
         <scope>provided</scope>
       </dependency>
 
+      <dependency>
+        <groupId>io.wcm</groupId>
+        <artifactId>io.wcm.caconfig.editor.package</artifactId>
+        <version>1.15.8</version>
+        <type>zip</type>
+      </dependency>
+
       <!-- Testing -->
                   
       <dependency>

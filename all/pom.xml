@@ -94,6 +94,12 @@
                             <type>zip</type>
                             <target>/apps/aem-demo-vendor-packages/application/install</target>
                         </embedded>
+                        <embedded>
+                            <groupId>io.wcm</groupId>
+                            <artifactId>io.wcm.caconfig.editor.package</artifactId>
+                            <type>zip</type>
+                            <target>/apps/aem-demo-vendor-packages/application/install</target>
+                        </embedded>
                     </embeddeds>
                 </configuration>
             </plugin>
@@ -210,6 +216,11 @@
         <dependency>
             <groupId>com.adobe.cq</groupId>
             <artifactId>core.wcm.components.config</artifactId>
+            <type>zip</type>
+        </dependency>
+        <dependency>
+            <groupId>io.wcm</groupId>
+            <artifactId>io.wcm.caconfig.editor.package</artifactId>
             <type>zip</type>
         </dependency>
     </dependencies>
