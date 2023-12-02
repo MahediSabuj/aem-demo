@@ -3,8 +3,7 @@
   jcr:primaryType="cq:Page">
   <jcr:content jcr:primaryType="cq:PageContent"
      pageTitle="AEM Demo"
-     jcr:title="Germany"
-     jcr:mixinTypes="[cq:LiveRelationship,cq:LiveSync]"
+     jcr:title="English"
      cq:template="/conf/aem-demo/settings/wcm/templates/page-content"
      sling:resourceType="aem-demo/components/page">
     <root jcr:primaryType="nt:unstructured"
@@ -26,9 +25,5 @@
         </container>
       </container>
     </root>
-    <cq:LiveSyncConfig jcr:primaryType="cq:LiveCopy"
-      cq:rolloutConfigs="[/libs/msm/wcm/rolloutconfigs/default]"
-      cq:isDeep="{Boolean}false"
-      cq:master="/content/aem-demo/language-masters/de"/>
   </jcr:content>
 </jcr:root>

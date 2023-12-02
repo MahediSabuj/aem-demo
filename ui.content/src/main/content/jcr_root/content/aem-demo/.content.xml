@@ -10,7 +10,9 @@
     sling:configRef="/conf/aem-demo"
     sling:redirect="{Boolean}true"
     sling:redirectStatus="{Long}302"
-    sling:resourceType="aem-demo/components/page" />
+    sling:resourceType="aem-demo/components/page"/>
+    <language-masters/>
     <us/>
     <de/>
+    <sg/>
 </jcr:root>
