@@ -9,16 +9,12 @@ import org.osgi.service.component.annotations.Component;
 
 @Component(service = { SiteConfigService.class },
   property = {
-    Constants.SERVICE_DESCRIPTION + "=Rest Client Service"
+    Constants.SERVICE_DESCRIPTION + "=Site Config Service"
 })
 public class SiteConfigServiceImpl implements SiteConfigService {
     @Override
     public SiteConfig getSiteConfig(Resource resource) {
         ConfigurationBuilder configurationBuilder = resource.adaptTo(ConfigurationBuilder.class);
-        if (configurationBuilder != null) {
-            return configurationBuilder.as(SiteConfig.class);
-        }
-
-        return null;
+        return configurationBuilder != null ? configurationBuilder.as(SiteConfig.class) : null;
     }
 }
