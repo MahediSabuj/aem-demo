@@ -25,8 +25,7 @@ import javax.inject.Named;
   defaultInjectionStrategy = DefaultInjectionStrategy.OPTIONAL)
 @Exporter(
   name = ExporterConstants.SLING_MODEL_EXPORTER_NAME,
-  extensions = ExporterConstants.SLING_MODEL_EXTENSION
-)
+  extensions = ExporterConstants.SLING_MODEL_EXTENSION)
 public class UserNavigationImpl implements UserNavigation {
     protected static final String RESOURCE_TYPE = "aem-demo/components/usernavigation";
 

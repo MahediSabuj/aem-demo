@@ -33,8 +33,7 @@ import java.util.stream.StreamSupport;
   defaultInjectionStrategy = DefaultInjectionStrategy.OPTIONAL)
 @Exporter(
   name = ExporterConstants.SLING_MODEL_EXPORTER_NAME,
-  extensions = ExporterConstants.SLING_MODEL_EXTENSION
-)
+  extensions = ExporterConstants.SLING_MODEL_EXTENSION)
 public class MegaMenuImpl implements MegaMenu {
     private final Logger LOG = LoggerFactory.getLogger(this.getClass());
 
