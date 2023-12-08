@@ -24,19 +24,19 @@ public class ArticleImpl implements Article {
     protected static final String RESOURCE_TYPE = "aem-demo/components/article/v1/article";
 
     @ValueMapValue
-    String articleTitle;
+    protected String articleTitle;
 
     @ValueMapValue
-    String articleDescription;
+    protected String articleDescription;
 
     @ValueMapValue
-    String articleAuthor;
+    protected String articleAuthor;
 
     @ValueMapValue
-    String[] articleTags;
+    protected String[] articleTags;
 
     @SlingObject
-    ResourceResolver resourceResolver;
+    protected ResourceResolver resourceResolver;
 
     @Override
     public String getArticleTitle() {
