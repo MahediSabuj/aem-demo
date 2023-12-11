@@ -61,6 +61,28 @@
               </column>
             </items>
           </basic>
+          <advanced jcr:primaryType="nt:unstructured"
+            jcr:title="Advanced"
+            sling:resourceSuperType="wcm/foundation/components/basicpage/v1/basicpage/tabs/advanced"
+            sling:resourceType="granite/ui/components/coral/foundation/fixedcolumns">
+            <items jcr:primaryType="nt:unstructured">
+              <column jcr:primaryType="nt:unstructured">
+                <items jcr:primaryType="nt:unstructured">
+                  <seo jcr:primaryType="nt:unstructured">
+                    <items jcr:primaryType="nt:unstructured">
+                      <robotsTags jcr:primaryType="nt:unstructured">
+                        <items jcr:primaryType="nt:unstructured">
+                          <unavailable_after jcr:primaryType="nt:unstructured"
+                            text="unavailable_after"
+                            value="unavailable_after"/>
+                        </items>
+                      </robotsTags>
+                    </items>
+                  </seo>
+                </items>
+              </column>
+            </items>
+          </advanced>
         </items>
       </tabs>
     </items>
