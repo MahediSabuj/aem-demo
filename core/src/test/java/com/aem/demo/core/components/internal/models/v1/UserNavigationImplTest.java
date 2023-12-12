@@ -37,9 +37,7 @@ public class UserNavigationImplTest {
     public void setup(AemContext context) {
         MockitoAnnotations.openMocks(this);
 
-        context.load().json(
-           "/com/aem/demo/core/components/internal/models/v1/usernavigation.json",
-           "/content");
+        context.load().json("/content/aem-demo/usernavigation.json", "/content");
 
         userNavigationPath = String.format("%s/%s%s",
             LOGIN_PAGE, JcrConstants.JCR_CONTENT, USER_NAVIGATION);

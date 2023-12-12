@@ -28,7 +28,7 @@ public class MegaMenuImplTest {
     public void setup(AemContext context) {
         MockitoAnnotations.openMocks(this);
 
-        context.load().json("/com/aem/demo/core/components/internal/models/v1/megamenu.json", "/content");
+        context.load().json("/content/aem-demo/megamenu.json", "/content");
         context.currentResource("/content/aem-demo/us/en/mobile/service/jcr:content/root/container/megamenu");
 
         context.addModelsForPackage("com.aem.demo.core.models");
