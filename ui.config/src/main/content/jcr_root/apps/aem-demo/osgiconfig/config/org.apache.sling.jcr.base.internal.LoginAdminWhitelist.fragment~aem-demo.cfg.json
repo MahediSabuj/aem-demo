@@ -1,0 +1,4 @@
+{
+  "whitelist.bundles": ["aem-demo.core"],
+  "whitelist.name": "AEM Demo Login Whitelist"
+}

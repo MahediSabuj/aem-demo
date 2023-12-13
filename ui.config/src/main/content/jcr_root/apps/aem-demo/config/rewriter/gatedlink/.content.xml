@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jcr:root xmlns:jcr="http://www.jcp.org/jcr/1.0" xmlns:nt="http://www.jcp.org/jcr/nt/1.0"
+  jcr:primaryType="nt:unstructured"
+  contentTypes="[text/html]"
+  enabled="{Boolean}true"
+  generatorType="htmlparser"
+  order="{Long}1"
+  paths="[/content/aem-demo]"
+  serializerType="htmlwriter"
+  transformerTypes="[gatedlinkrewriter]">
+  <generator-htmlparser jcr:primaryType="nt:unstructured"
+    includeTags="[A,/A]"/>
+</jcr:root>

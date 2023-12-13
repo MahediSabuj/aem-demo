@@ -1,0 +1,17 @@
+{
+  "activity": {
+    "jcr:primaryType": "cq:Tag",
+    "jcr:title": "Activity",
+    "sling:resourceType": "cq/tagging/components/tag",
+    "biking": {
+      "jcr:primaryType": "cq:Tag",
+      "jcr:title": "Biking",
+      "sling:resourceType": "cq/tagging/components/tag"
+    },
+    "hiking": {
+      "jcr:primaryType": "cq:Tag",
+      "jcr:title": "Hiking",
+      "sling:resourceType": "cq/tagging/components/tag"
+    }
+  }
+}

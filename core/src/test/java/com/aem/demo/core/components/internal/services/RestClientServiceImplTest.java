@@ -1,8 +1,12 @@
 package com.aem.demo.core.components.internal.services;
 
-import com.aem.demo.core.models.ArticleModel;
-import com.aem.demo.core.models.impl.ArticleModelImpl;
-import com.aem.demo.core.services.AppConfigurationService;
+import com.aem.demo.core.models.authentication.AuthorizeModel;
+import com.aem.demo.core.models.authentication.TokenModel;
+import com.aem.demo.core.models.authentication.UserInfoModel;
+import com.aem.demo.core.models.authentication.impl.AuthorizeModelImpl;
+import com.aem.demo.core.models.authentication.impl.TokenModelImpl;
+import com.aem.demo.core.models.authentication.impl.UserInfoModelImpl;
+import com.aem.demo.core.services.AppConfigService;
 import io.wcm.testing.mock.aem.junit5.AemContextExtension;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -18,6 +22,8 @@ import java.io.IOException;
 import java.net.http.HttpClient;
 import java.net.http.HttpResponse;
 import java.time.Duration;
+import java.util.HashMap;
+import java.util.Map;
 
 @ExtendWith(AemContextExtension.class)
 public class RestClientServiceImplTest {
@@ -25,7 +31,7 @@ public class RestClientServiceImplTest {
     private HttpClient httpClient;
 
     @Mock
-    private AppConfigurationService appConfigurationService;
+    private AppConfigService appConfigService;
 
     @Mock
     private HttpClient.Builder httpClientBuilder;
@@ -40,8 +46,9 @@ public class RestClientServiceImplTest {
     public void setup() throws IOException, InterruptedException {
         MockitoAnnotations.openMocks(this);
 
-        Mockito.when(appConfigurationService.getApiDomain()).thenReturn("https://www.google.com");
-        Mockito.when(httpClientBuilder.version(HttpClient.Version.HTTP_2)).thenReturn(httpClientBuilder);
+        Mockito.when(appConfigService.getApiBaseUrl()).thenReturn("https://www.google.com");
+        Mockito.when(httpClientBuilder.version(HttpClient.Version.HTTP_1_1)).thenReturn(httpClientBuilder);
+        Mockito.when(httpClientBuilder.followRedirects(HttpClient.Redirect.NORMAL)).thenReturn(httpClientBuilder);
         Mockito.when(httpClientBuilder.connectTimeout(Duration.ofSeconds(10))).thenReturn(httpClientBuilder);
         Mockito.when(httpClientBuilder.build()).thenReturn(httpClient);
 
@@ -51,17 +58,23 @@ public class RestClientServiceImplTest {
     }
 
     @Test
-    public void testHttpClientService() throws IOException, InterruptedException {
+    public void testHttpClientService() {
         Mockito.when(httpResponse.statusCode()).thenReturn(200);
-        Mockito.when(httpResponse.body()).thenReturn("{\"articleId\":\"1\",\"articleAuthor\":\"Mahedi Sabuj\"}");
+        Mockito.when(httpResponse.body()).thenReturn("{" +
+                "\"preferred_username\": \"mahedi.sabuj@gmail.com\"," +
+                "\"email\": \"sabuj.ict.mbstu@gmail.com\"," +
+                "\"given_name\": \"AEM\"," +
+                "\"family_name\": \"User\"}");
 
         try(MockedStatic<HttpClient> mocked = Mockito.mockStatic(HttpClient.class)) {
             mocked.when(HttpClient::newBuilder).thenReturn(httpClientBuilder);
 
-            ArticleModel articleModel = restClientService.get("https://www.google.com", ArticleModelImpl.class);
-            Assertions.assertNotNull(articleModel);
-            Assertions.assertEquals("1", articleModel.getArticleId());
-            Assertions.assertEquals("Mahedi Sabuj", articleModel.getArticleAuthor());
+            UserInfoModel userInfoModel = restClientService.get("https://www.google.com", null, UserInfoModelImpl.class);
+            Assertions.assertNotNull(userInfoModel);
+            Assertions.assertEquals("AEM", userInfoModel.getFirstName());
+            Assertions.assertEquals("User", userInfoModel.getLastName());
+            Assertions.assertEquals("mahedi.sabuj@gmail.com", userInfoModel.getUsername());
+            Assertions.assertEquals("sabuj.ict.mbstu@gmail.com", userInfoModel.getEmail());
         }
     }
 
@@ -69,39 +82,69 @@ public class RestClientServiceImplTest {
     public void testInvalidStatusCode() {
         Mockito.when(httpResponse.statusCode()).thenReturn(404);
 
+        Map<String, String> headers = new HashMap<>();
+        headers.put("Content-Type", "application/json");
+
         try(MockedStatic<HttpClient> mocked = Mockito.mockStatic(HttpClient.class)) {
             mocked.when(HttpClient::newBuilder).thenReturn(httpClientBuilder);
 
-            ArticleModel articleModel = restClientService.get("https://www.google.com", ArticleModelImpl.class);
-            Assertions.assertNull(articleModel);
+            TokenModel tokenModel = restClientService.get("https://www.google.com", headers, TokenModelImpl.class);
+            Assertions.assertNull(tokenModel);
         }
     }
 
     @Test
     public void testApiResponseWithInvalidProperty() {
         Mockito.when(httpResponse.statusCode()).thenReturn(200);
-        Mockito.when(httpResponse.body()).thenReturn("{\"articleTitle\":\"AEM\",\"articleAuthor\":\"Mahedi Sabuj\"}");
+        Mockito.when(httpResponse.body()).thenReturn("{\"access_token\":\"XXX\",\"code\":\"ZZZ\"}");
 
         try(MockedStatic<HttpClient> mocked = Mockito.mockStatic(HttpClient.class)) {
             mocked.when(HttpClient::newBuilder).thenReturn(httpClientBuilder);
 
-            ArticleModel articleModel = restClientService.get("https://www.google.com", ArticleModelImpl.class);
-            Assertions.assertNotNull(articleModel);
-            Assertions.assertNull(articleModel.getArticleId());
-            Assertions.assertEquals("Mahedi Sabuj", articleModel.getArticleAuthor());
+            TokenModel tokenModel = restClientService.get("https://www.google.com", null, TokenModelImpl.class);
+            Assertions.assertNotNull(tokenModel);
+            Assertions.assertEquals("XXX", tokenModel.getAccessToken());
         }
     }
 
     @Test
     public void testApiResponseWithInvalidResponse() {
         Mockito.when(httpResponse.statusCode()).thenReturn(200);
-        Mockito.when(httpResponse.body()).thenReturn("{'articleId':'AEM','articleAuthor':'Mahedi Sabuj'}");
+        Mockito.when(httpResponse.body()).thenReturn("{'code':'XXX'}");
 
         try(MockedStatic<HttpClient> mocked = Mockito.mockStatic(HttpClient.class)) {
             mocked.when(HttpClient::newBuilder).thenReturn(httpClientBuilder);
 
-            ArticleModel articleModel = restClientService.get("https://www.google.com", ArticleModelImpl.class);
-            Assertions.assertNull(articleModel);
+            AuthorizeModel authorizeModel = restClientService.get("https://www.google.com", null, AuthorizeModelImpl.class);
+            Assertions.assertNull(authorizeModel);
+        }
+    }
+
+    @Test
+    public void testPostRequest() {
+        Mockito.when(httpResponse.statusCode()).thenReturn(200);
+        Mockito.when(httpResponse.body()).thenReturn("{\"code\":\"XXX\"}");
+
+        try(MockedStatic<HttpClient> mocked = Mockito.mockStatic(HttpClient.class)) {
+            mocked.when(HttpClient::newBuilder).thenReturn(httpClientBuilder);
+
+            AuthorizeModel authorizeModel = restClientService.post("https://www.google.com", "", null, AuthorizeModelImpl.class);
+            Assertions.assertNotNull(authorizeModel);
+            Assertions.assertEquals("XXX", authorizeModel.getCode());
+        }
+    }
+
+    @Test
+    public void testPostRequestThrowException() throws IOException, InterruptedException {
+        Mockito.when(
+            httpClient.send(Mockito.any(), Mockito.any(HttpResponse.BodyHandlers.ofString().getClass()))
+        ).thenThrow(IOException.class);
+
+        try(MockedStatic<HttpClient> mocked = Mockito.mockStatic(HttpClient.class)) {
+            mocked.when(HttpClient::newBuilder).thenReturn(httpClientBuilder);
+
+            AuthorizeModel authorizeModel = restClientService.post("https://www.google.com", "", null, AuthorizeModelImpl.class);
+            Assertions.assertNull(authorizeModel);
         }
     }
 }

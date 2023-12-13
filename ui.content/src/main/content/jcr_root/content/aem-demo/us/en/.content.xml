@@ -18,6 +18,7 @@
             sling:resourceType="aem-demo/components/article/v1/article"
             articleTitle="AEM Community"
             articleDescription="&lt;p>Level 9&lt;/p>"
+            articleAuthor="Mahedi Sabuj"
             textIsRich="true"
             articleTags="[aem-demo:activity/biking,aem-demo:activity/hiking]"
           />
@@ -32,4 +33,5 @@
   <promotions/>
   <rewards/>
   <contact/>
+  <login/>
 </jcr:root>

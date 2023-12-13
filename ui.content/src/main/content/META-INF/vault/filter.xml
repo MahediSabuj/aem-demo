@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <workspaceFilter version="1.0">
     <filter root="/conf/aem-demo"/>
-    <filter root="/content/aem-demo"/>
-    <filter root="/content/dam/aem-demo"/>
-    <filter root="/content/experience-fragments/aem-demo"/>
-    <filter root="/content/cq:graphql/aem-demo"/>
-    <filter root="/content/cq:tags/aem-demo"/>
+    <filter root="/content/aem-demo" mode="merge"/>
+    <filter root="/content/dam/aem-demo" mode="merge"/>
+    <filter root="/content/experience-fragments/aem-demo" mode="merge"/>
+    <filter root="/content/cq:graphql/aem-demo" mode="merge"/>
+    <filter root="/content/cq:tags/aem-demo" mode="merge"/>
 </workspaceFilter>

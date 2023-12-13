@@ -7,6 +7,7 @@
   "include-filter.config.ignoreUrlParams": [""],
   "include-filter.config.include-type": "SSI",
   "include-filter.config.resource-types": [
+    "aem-demo/components/usernavigation",
     "aem-demo/components/megamenu/v1/megamenu"
   ],
   "include-filter.config.rewrite": false,

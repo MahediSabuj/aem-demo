@@ -42,7 +42,7 @@
     <vault.user>admin</vault.user>
     <vault.password>admin</vault.password>
     <frontend-maven-plugin.version>1.12.0</frontend-maven-plugin.version>
-    <core.wcm.components.version>2.22.12</core.wcm.components.version>
+    <core.wcm.components.version>2.23.4</core.wcm.components.version>
     <bnd.version>5.1.2</bnd.version>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
@@ -781,7 +781,21 @@ Bundle-DocURL:
         <type>zip</type>
         <version>${core.wcm.components.version}</version>
       </dependency>
-                  
+
+      <dependency>
+        <groupId>org.projectlombok</groupId>
+        <artifactId>lombok</artifactId>
+        <version>1.18.30</version>
+        <scope>provided</scope>
+      </dependency>
+
+      <dependency>
+        <groupId>io.wcm</groupId>
+        <artifactId>io.wcm.caconfig.editor.package</artifactId>
+        <version>1.15.8</version>
+        <type>zip</type>
+      </dependency>
+
       <!-- Testing -->
                   
       <dependency>
@@ -830,6 +844,13 @@ Bundle-DocURL:
         <groupId>org.apache.sling</groupId>
         <artifactId>org.apache.sling.testing.osgi-mock.junit5</artifactId>
         <version>3.3.10</version>
+        <scope>test</scope>
+      </dependency>
+
+      <dependency>
+        <groupId>org.apache.sling</groupId>
+        <artifactId>org.apache.sling.testing.sling-mock.junit5</artifactId>
+        <version>3.4.14</version>
         <scope>test</scope>
       </dependency>
 

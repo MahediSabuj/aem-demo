@@ -1,0 +1,5 @@
+{
+  "api.baseurl": "https://ms-29-dev-ed.my.site.com",
+  "client.id": "3MVG97quAmFZJfVz27sUMuscZ9dZGsyCI9kC1tIfVwmzriHkJIauP0Olxyd7PIk_p79o35gkjtNufE0jYKgVr",
+  "redirect.uri": "/services/oauth2/echo"
+}

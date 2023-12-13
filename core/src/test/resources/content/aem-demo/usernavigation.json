@@ -1,0 +1,44 @@
+{
+  "aem-demo": {
+    "jcr:primaryType": "cq:Page",
+    "sling:resourceType": "aem-demo/components/page",
+    "jcr:content": {
+      "jcr:primaryType": "cq:PageContent",
+      "jcr:title": "AEM Demo"
+    },
+    "us": {
+      "jcr:primaryType": "cq:Page",
+      "sling:resourceType": "aem-demo/components/page",
+      "jcr:content": {
+        "jcr:primaryType": "cq:PageContent",
+        "jcr:title": "United States"
+      },
+      "en": {
+        "jcr:primaryType": "cq:Page",
+        "sling:resourceType": "aem-demo/components/page",
+        "jcr:content": {
+          "jcr:primaryType": "cq:PageContent",
+          "jcr:title": "English"
+        },
+        "login": {
+          "jcr:primaryType": "cq:Page",
+          "jcr:content": {
+            "jcr:title": "Login",
+            "sling:resourceType": "aem-demo/components/page",
+            "root": {
+              "jcr:primaryType": "nt:unstructured",
+              "layout": "responsiveGrid",
+              "sling:resourceType": "aem-demo/components/container",
+              "usernavigation": {
+                "jcr:primaryType": "nt:unstructured",
+                "loginPage": "/content/aem-demo/us/en/login",
+                "logoutText": "Logout",
+                "sling:resourceType": "aem-demo/components/usernavigation"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

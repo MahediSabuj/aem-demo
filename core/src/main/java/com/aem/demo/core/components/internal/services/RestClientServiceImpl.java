@@ -1,7 +1,8 @@
 package com.aem.demo.core.components.internal.services;
 
 import com.aem.demo.core.components.services.RestClientService;
-import com.aem.demo.core.services.AppConfigurationService;
+import com.aem.demo.core.services.AppConfigService;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.commons.lang3.StringUtils;
@@ -18,58 +19,92 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.time.Duration;
 import java.util.Arrays;
+import java.util.Map;
 
 @Component(service = { RestClientService.class },
   property = {
     Constants.SERVICE_DESCRIPTION + "=Rest Client Service"
 })
 public class RestClientServiceImpl implements RestClientService {
-    private static final Logger LOGGER = LoggerFactory.getLogger(RestClientServiceImpl.class);
+    private final Logger LOGGER = LoggerFactory.getLogger(this.getClass());
     private static final int CONNECTION_TIMEOUT = 10;
 
     @Reference
-    AppConfigurationService appConfigurationService;
+    AppConfigService appConfigService;
 
     private HttpClient getHttpClient(int... timeout) {
-        int connectionTimeout = Arrays.stream(timeout).findFirst().orElse(CONNECTION_TIMEOUT);
+        int connectionTimeout = Arrays.stream(timeout).findFirst()
+            .orElse(CONNECTION_TIMEOUT);
 
         return HttpClient.newBuilder()
-            .version(HttpClient.Version.HTTP_2)
+            .version(HttpClient.Version.HTTP_1_1)
+            .followRedirects(HttpClient.Redirect.NORMAL)
             .connectTimeout(Duration.ofSeconds(connectionTimeout))
             .build();
     }
 
-    private String get(String url) throws IOException, InterruptedException {
-        HttpClient httpClient = getHttpClient();
-        final String API_URL = appConfigurationService.getApiDomain().concat(url);
+    private HttpRequest.Builder get() {
+        return HttpRequest.newBuilder()
+            .GET();
+    }
 
-        HttpRequest httpRequest = HttpRequest.newBuilder()
-            .GET()
+    private HttpRequest.Builder post(String body) {
+        return HttpRequest.newBuilder()
+            .POST(HttpRequest.BodyPublishers.ofString(body));
+    }
+
+    private String send(HttpRequest.Builder httpRequestBuilder, String url, Map<String, String> headers) {
+        HttpClient httpClient = getHttpClient();
+        final String API_URL = appConfigService.getApiBaseUrl().concat(url);
+        
+        if (headers != null) {
+            for (Map.Entry<String, String> entry : headers.entrySet()) {
+                httpRequestBuilder = httpRequestBuilder.header(entry.getKey(), entry.getValue());
+            }
+        }
+
+        HttpRequest httpRequest = httpRequestBuilder
             .uri(URI.create(API_URL))
             .build();
 
-        HttpResponse<String> httpResponse = httpClient.send(httpRequest, HttpResponse.BodyHandlers.ofString());
+        try {
+            HttpResponse<String> httpResponse = httpClient.send(
+                httpRequest, HttpResponse.BodyHandlers.ofString());
 
-        if(httpResponse.statusCode() == 200)
-            return httpResponse.body();
+            if(httpResponse.statusCode() == 200)
+                return httpResponse.body();
+        } catch (IOException | InterruptedException ex) {
+            LOGGER.error("Error in Send Request");
+        }
+
+        return StringUtils.EMPTY;
+    }
+
+    private <T> T map(String response, Class<T> type) {
+        if(StringUtils.isNotBlank(response)) {
+            try {
+                ObjectMapper objectMapper = new ObjectMapper();
+                objectMapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
+                return objectMapper.readValue(response, type);
+            } catch (JsonProcessingException ex) {
+                LOGGER.error(ex.getMessage());
+            }
+        }
 
         return null;
     }
 
     @Override
-    public <T> T get(String url, Class<T> type) {
-        try {
-            String response = get(url);
+    public <T> T get(String url, Map<String, String> headers, Class<T> type) {
+        HttpRequest.Builder httpRequestBuilder = get();
+        String response = send(httpRequestBuilder, url, headers);
+        return map(response, type);
+    }
 
-            if(StringUtils.isNotBlank(response)) {
-                ObjectMapper objectMapper = new ObjectMapper();
-                objectMapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
-                return objectMapper.readValue(response, type);
-            }
-        } catch (IOException | InterruptedException ex) {
-            LOGGER.error(ex.getMessage());
-        }
-
-        return null;
+    @Override
+    public <T> T post(String url, String body, Map<String, String> headers, Class<T> type) {
+        HttpRequest.Builder httpRequestBuilder = post(body);
+        String response = send(httpRequestBuilder, url, headers);
+        return map(response, type);
     }
 }

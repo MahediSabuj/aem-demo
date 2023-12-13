@@ -1,0 +1,4 @@
+{
+  "service.ranking": "100",
+  "user.mapping": ["aem-demo.core:writeService=aem-demo-service-user"]
+}

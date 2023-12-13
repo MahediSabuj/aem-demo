@@ -1,11 +1,14 @@
 package com.aem.demo.core.components.models;
 
-import com.aem.demo.core.models.ArticleModel;
+import org.osgi.annotation.versioning.ConsumerType;
 
-public interface Article extends ArticleModel {
+@ConsumerType
+public interface Article {
     String getArticleTitle();
 
     String getArticleDescription();
+
+    String getArticleAuthor();
 
     String[] getArticleTags();
 }

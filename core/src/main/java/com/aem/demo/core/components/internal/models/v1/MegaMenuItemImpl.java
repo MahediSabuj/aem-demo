@@ -10,17 +10,15 @@ import java.util.List;
 
 public class MegaMenuItemImpl implements MegaMenuItem {
     protected Page page;
-    protected LinkManager linkManager;
     protected List<MegaMenuItem> children;
     protected boolean active;
     protected boolean current;
 
-    public MegaMenuItemImpl(Page page, boolean active, boolean current, List<MegaMenuItem> children, LinkManager linkManager) {
+    public MegaMenuItemImpl(Page page, boolean active, boolean current, List<MegaMenuItem> children) {
         this.active = active;
         this.current = current;
         this.page = page;
         this.children = children;
-        this.linkManager = linkManager;
     }
 
     @Override
@@ -44,8 +42,8 @@ public class MegaMenuItemImpl implements MegaMenuItem {
     }
 
     @Override
-    public Link<Page> getLink() {
-        return linkManager == null ? null : linkManager.get(page).build();
+    public String getLink() {
+        return page.getPath();
     }
 
     @Override

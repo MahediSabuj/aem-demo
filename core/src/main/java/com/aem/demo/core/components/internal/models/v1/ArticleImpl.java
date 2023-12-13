@@ -2,9 +2,6 @@ package com.aem.demo.core.components.internal.models.v1;
 
 import com.adobe.cq.export.json.ExporterConstants;
 import com.aem.demo.core.components.models.Article;
-import com.aem.demo.core.components.services.RestClientService;
-import com.aem.demo.core.models.ArticleModel;
-import com.aem.demo.core.models.impl.ArticleModelImpl;
 import com.day.cq.tagging.Tag;
 import com.day.cq.tagging.TagManager;
 import org.apache.sling.api.SlingHttpServletRequest;
@@ -12,11 +9,8 @@ import org.apache.sling.api.resource.ResourceResolver;
 import org.apache.sling.models.annotations.DefaultInjectionStrategy;
 import org.apache.sling.models.annotations.Exporter;
 import org.apache.sling.models.annotations.Model;
-import org.apache.sling.models.annotations.injectorspecific.OSGiService;
 import org.apache.sling.models.annotations.injectorspecific.SlingObject;
 import org.apache.sling.models.annotations.injectorspecific.ValueMapValue;
-
-import javax.annotation.PostConstruct;
 
 @Model(
   adaptables = { SlingHttpServletRequest.class },
@@ -25,33 +19,24 @@ import javax.annotation.PostConstruct;
   defaultInjectionStrategy = DefaultInjectionStrategy.OPTIONAL)
 @Exporter(
   name = ExporterConstants.SLING_MODEL_EXPORTER_NAME,
-  extensions = ExporterConstants.SLING_MODEL_EXTENSION
-)
-public class ArticleImpl extends ArticleModelImpl implements Article {
+  extensions = ExporterConstants.SLING_MODEL_EXTENSION)
+public class ArticleImpl implements Article {
     protected static final String RESOURCE_TYPE = "aem-demo/components/article/v1/article";
 
     @ValueMapValue
-    String articleTitle;
+    protected String articleTitle;
 
     @ValueMapValue
-    String articleDescription;
+    protected String articleDescription;
 
     @ValueMapValue
-    String[] articleTags;
+    protected String articleAuthor;
+
+    @ValueMapValue
+    protected String[] articleTags;
 
     @SlingObject
-    ResourceResolver resourceResolver;
-
-    @OSGiService
-    RestClientService restClientService;
-
-    @PostConstruct
-    protected void init() {
-        ArticleModel articleModel = restClientService.get("/api/v1/articles/1", ArticleModelImpl.class);
-
-        articleId = articleModel.getArticleId();
-        articleAuthor = articleModel.getArticleAuthor();
-    }
+    protected ResourceResolver resourceResolver;
 
     @Override
     public String getArticleTitle() {
@@ -61,6 +46,11 @@ public class ArticleImpl extends ArticleModelImpl implements Article {
     @Override
     public String getArticleDescription() {
         return articleDescription;
+    }
+
+    @Override
+    public String getArticleAuthor() {
+        return articleAuthor;
     }
 
     @Override

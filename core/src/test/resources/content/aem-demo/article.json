@@ -1,0 +1,19 @@
+{
+  "article": {
+    "jcr:primaryType": "nt:unstructured",
+    "v1": {
+      "jcr:primaryType": "nt:unstructured",
+      "articleTitle": "AEM Community",
+      "articleDescription": "<p>Hello World!</p>",
+      "articleAuthor": "Mahedi Sabuj",
+      "articleTags": ["aem-demo:activity/biking", "aem-demo:activity/hiking"],
+      "sling:resourceType": "aem-demo/components/article/v1/article"
+    },
+    "v2": {
+      "jcr:primaryType": "nt:unstructured",
+      "fragmentPath": "/content/dam/aem-demo/us/en/articles/aem-community",
+      "variationName": "master",
+      "sling:resourceType": "aem-demo/components/article/v2/article"
+    }
+  }
+}

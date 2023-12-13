@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0" xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:granite="http://www.adobe.com/jcr/granite/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0" xmlns:nt="http://www.jcp.org/jcr/nt/1.0"
+  jcr:primaryType="nt:unstructured"
+  jcr:title="Article (v2)"
+  sling:resourceType="cq/gui/components/authoring/dialog"
+  extraClientlibs="[aem-demo.components.article.v2.dialog]">
+  <content jcr:primaryType="nt:unstructured"
+    sling:resourceType="granite/ui/components/coral/foundation/container"
+    granite:class="cmp-contentfragment__editor">
+    <granite:data jcr:primaryType="nt:unstructured"
+      component-path="${requestPathInfo.suffix}"/>
+    <items jcr:primaryType="nt:unstructured">
+      <tabs jcr:primaryType="nt:unstructured"
+        sling:resourceType="granite/ui/components/coral/foundation/tabs"
+        maximized="{Boolean}true">
+        <items jcr:primaryType="nt:unstructured">
+          <properties jcr:primaryType="nt:unstructured"
+            jcr:title="Properties"
+            sling:resourceType="granite/ui/components/coral/foundation/container"
+            margin="{Boolean}true">
+            <items jcr:primaryType="nt:unstructured">
+              <column jcr:primaryType="nt:unstructured"
+                sling:resourceType="granite/ui/components/coral/foundation/container">
+                <items jcr:primaryType="nt:unstructured">
+                  <fragmentPath jcr:primaryType="nt:unstructured"
+                    sling:resourceType="dam/cfm/components/cfpicker"
+                    name="./fragmentPath"
+                    fieldDescription="Path to the Content Fragment to display."
+                    fieldLabel="Content Fragment"
+                    emptyText="Enter or select Content Fragment"
+                    pickerTitle="Select Content Fragment"
+                    rootPath="/content/dam/aem-demo"/>
+                  <variationName jcr:primaryType="nt:unstructured"
+                    sling:resourceType="granite/ui/components/coral/foundation/form/select"
+                    name="./variationName"
+                    fieldLabel="Variation"
+                    fieldDescription="Specify which variation to display">
+                    <datasource jcr:primaryType="nt:unstructured"
+                      sling:resourceType="core/wcm/components/contentfragment/v1/datasource/variations"
+                      componentPath="${requestPathInfo.suffix}"
+                      fragmentPath="${param.fragmentPath}"/>
+                    <granite:data jcr:primaryType="nt:unstructured"
+                      field-path="${requestPathInfo.resourcePath}"/>
+                  </variationName>
+                  <id jcr:primaryType="nt:unstructured"
+                    sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                    fieldDescription="HTML ID attribute to apply to the component."
+                    fieldLabel="ID"
+                    name="./id"
+                    validation="html-unique-id-validator"/>
+                </items>
+              </column>
+            </items>
+          </properties>
+          <cq:styles jcr:primaryType="nt:unstructured"
+            sling:resourceType="granite/ui/components/coral/foundation/include"
+            path="/mnt/overlay/cq/gui/components/authoring/dialog/style/tab_edit/styletab"/>
+          </items>
+        </tabs>
+    </items>
+  </content>
+</jcr:root>

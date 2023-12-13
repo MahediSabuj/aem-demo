@@ -2,7 +2,7 @@
 <jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0" xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0" xmlns:nt="http://www.jcp.org/jcr/nt/1.0"
   jcr:primaryType="cq:Page">
   <jcr:content jcr:primaryType="cq:PageContent"
-    cq:allowedTemplates="[/conf/aem-demo/settings/wcm/templates/(?!xf-).*]"
+    cq:allowedTemplates="[/conf/aem-demo/settings/wcm/templates/page-content,/apps/wcm-io/caconfig/editor-package/templates/editor]"
     cq:conf="/conf/aem-demo"
     cq:redirectTarget="/content/aem-demo/us/en"
     cq:template="/conf/aem-demo/settings/wcm/templates/page-content"
@@ -10,6 +10,9 @@
     sling:configRef="/conf/aem-demo"
     sling:redirect="{Boolean}true"
     sling:redirectStatus="{Long}302"
-    sling:resourceType="aem-demo/components/page" />
+    sling:resourceType="aem-demo/components/page"/>
+    <language-masters/>
     <us/>
+    <de/>
+    <sg/>
 </jcr:root>

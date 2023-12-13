@@ -64,6 +64,20 @@
                 rootPath="/content/dam/aem-demo"/>
               <granite:data jcr:primaryType="nt:unstructured"/>
             </_x0031_699542935831>
+            <_x0031_699866229789 jcr:primaryType="nt:unstructured"
+              cq:showOnCreate="true"
+              sling:resourceType="cq/gui/components/coral/common/form/tagfield"
+              autocreateTag="true"
+              fieldLabel="Tags"
+              forceSelection="false"
+              listOrder="21"
+              metaType="tags"
+              multiple="[true,false]"
+              name="tags"
+              renderReadOnly="false"
+              rootPath="/content/cq:tags/aem-demo"
+              showEmptyInReadOnly="true"
+              valueType="string/tags[]"/>
           </items>
         </content>
       </cq:dialog>
