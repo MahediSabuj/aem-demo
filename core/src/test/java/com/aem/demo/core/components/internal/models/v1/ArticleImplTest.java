@@ -16,8 +16,9 @@ import java.util.Objects;
 public class ArticleImplTest {
     @BeforeEach
     public void setup(AemContext context) {
-        context.load().json("/com/aem/demo/core/components/internal/models/v1/article.json", "/content");
-        context.currentResource("/content/article");
+        context.load().json("/content/aem-demo/article.json", "/content");
+        context.load().json("/content/cq:tags/aem-demo/article.json", "/content/cq:tags/aem-demo");
+        context.currentResource("/content/article/v1");
     }
 
     @Test
