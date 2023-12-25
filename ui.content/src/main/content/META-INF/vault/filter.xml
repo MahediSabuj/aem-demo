@@ -6,4 +6,6 @@
     <filter root="/content/experience-fragments/aem-demo" mode="merge"/>
     <filter root="/content/cq:graphql/aem-demo" mode="merge"/>
     <filter root="/content/cq:tags/aem-demo" mode="merge"/>
+    <filter root="/conf/global/settings/workflow/models/aem-demo-content-publish"/>
+    <filter root="/var/workflow/models/aem-demo-content-publish"/>
 </workspaceFilter>

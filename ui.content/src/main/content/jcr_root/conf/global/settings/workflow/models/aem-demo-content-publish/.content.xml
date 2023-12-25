@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0" xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0" xmlns:nt="http://www.jcp.org/jcr/nt/1.0"
+  jcr:primaryType="cq:Page">
+  <jcr:content jcr:primaryType="cq:PageContent"
+    cq:designPath="/libs/settings/wcm/designs/default"
+    cq:template="/libs/cq/workflow/templates/model"
+    jcr:title="AEM Demo Content Publish"
+    jcr:description="Publish Content Approval"
+    sling:resourceType="cq/workflow/components/pages/model"
+    workflowStages="[Approval,Publish]">
+    <flow jcr:primaryType="nt:unstructured"
+      sling:resourceType="foundation/components/parsys">
+      <lockpayloadprocess jcr:primaryType="nt:unstructured"
+        jcr:description="A process to lock the payload."
+        jcr:title="Lock Page"
+        sling:resourceType="cq/workflow/components/workflow/lockpayloadprocess">
+        <metaData jcr:primaryType="nt:unstructured"
+          PROCESS="com.day.cq.workflow.impl.process.LockProcess"
+          PROCESS_AUTO_ADVANCE="true"/>
+      </lockpayloadprocess>
+      <dynamic_participant jcr:primaryType="nt:unstructured"
+        jcr:title="Content Approval"
+        sling:resourceType="cq/workflow/components/model/dynamic_participant">
+        <metaData jcr:primaryType="nt:unstructured"
+          DYNAMIC_PARTICIPANT="com.aem.demo.core.workflow.process.ContentApproverChooser"
+          workflowStage="Approval"/>
+      </dynamic_participant>
+      <or jcr:primaryType="nt:unstructured"
+        sling:resourceType="cq/workflow/components/model/or"
+        branches="2"
+        branchName1="Approve"
+        branchName2="Reject"
+        branchOrder="[0,1]"
+        orSplit="true">
+        <_x0031_ jcr:primaryType="nt:unstructured"
+          sling:resourceType="cq/flow/components/parsys">
+          <unlockpayloadprocess jcr:primaryType="nt:unstructured"
+            jcr:description="A process to unlock the payload."
+            jcr:title="Approve [Unlock Page]"
+            sling:resourceType="cq/workflow/components/workflow/unlockpayloadprocess">
+            <metaData jcr:primaryType="nt:unstructured"
+              PROCESS="com.day.cq.workflow.impl.process.UnlockProcess"
+              PROCESS_AUTO_ADVANCE="true"/>
+          </unlockpayloadprocess>
+          <createversionprocess jcr:primaryType="nt:unstructured"
+            jcr:description="A process to create a version for either a page or an asset."
+            jcr:title="Create Version"
+            sling:resourceType="wcm/workflow/components/workflow/createversionprocess">
+            <metaData jcr:primaryType="nt:unstructured"
+              PROCESS="com.day.cq.wcm.workflow.process.CreateVersionProcess"
+              PROCESS_AUTO_ADVANCE="true"/>
+          </createversionprocess>
+          <activateresourceproc jcr:primaryType="nt:unstructured"
+            jcr:description="A process to activate a page or asset"
+            jcr:title="Publish Page"
+            sling:resourceType="wcm/workflow/components/workflow/activateresourceprocess">
+            <metaData jcr:primaryType="nt:unstructured"
+              PROCESS="com.day.cq.wcm.workflow.process.ActivatePageProcess"
+              PROCESS_AUTO_ADVANCE="true"/>
+          </activateresourceproc>
+        </_x0031_>
+        <_x0032_ jcr:primaryType="nt:unstructured"
+          sling:resourceType="cq/flow/components/parsys">
+          <unlockpayloadprocess jcr:primaryType="nt:unstructured"
+            jcr:description="A process to unlock the payload."
+            jcr:title="Reject [Unlock Page]"
+            sling:resourceType="cq/workflow/components/workflow/unlockpayloadprocess">
+            <metaData jcr:primaryType="nt:unstructured"
+              PROCESS="com.day.cq.workflow.impl.process.UnlockProcess"
+              PROCESS_AUTO_ADVANCE="true"/>
+          </unlockpayloadprocess>
+        </_x0032_>
+      </or>
+    </flow>
+  </jcr:content>
+</jcr:root>
