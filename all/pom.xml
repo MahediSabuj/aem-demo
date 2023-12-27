@@ -100,6 +100,11 @@
                             <type>zip</type>
                             <target>/apps/aem-demo-vendor-packages/application/install</target>
                         </embedded>
+                        <embedded>
+                            <groupId>org.apache.sling</groupId>
+                            <artifactId>org.apache.sling.resource.filter</artifactId>
+                            <target>/apps/aem-demo-vendor-packages/application/install</target>
+                        </embedded>
                     </embeddeds>
                 </configuration>
             </plugin>

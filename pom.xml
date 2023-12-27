@@ -720,7 +720,13 @@ Bundle-DocURL:
         <version>1.3.6</version>
         <scope>provided</scope>
       </dependency>
-                  
+
+      <dependency>
+        <groupId>org.apache.sling</groupId>
+        <artifactId>org.apache.sling.resource.filter</artifactId>
+        <version>1.0.0</version>
+      </dependency>
+
       <!-- Servlet API -->
                   
       <dependency>
