@@ -11,7 +11,7 @@ import org.osgi.service.component.annotations.Component;
   property = {
     "process.label=" + "Process Article Form Data"
 })
-public class ArticleProcess implements WorkflowProcess {
+public class ArticleFormDataProcess implements WorkflowProcess {
     @Override
     public void execute(WorkItem workItem, WorkflowSession workflowSession, MetaDataMap metaDataMap) throws WorkflowException {
         String __X  = "Salesforce";
