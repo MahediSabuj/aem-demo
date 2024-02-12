@@ -68,18 +68,4 @@ public class MegaMenuImplTest {
         Assertions.assertNotNull(PostpaidSubMenuItem);
         Assertions.assertEquals(0, PostpaidSubMenuItem.size());
     }
-
-    @Test
-    public void testLoginException(AemContext context) throws LoginException {
-        Mockito.when(resolverService.getResourceResolver()).thenThrow(LoginException.class);
-
-        ModelFactory modelFactory = context.getService(ModelFactory.class);
-        MockSlingHttpServletRequest request = context.request();
-
-        MegaMenu megaMenu = Objects.requireNonNull(modelFactory).createModel(request, MegaMenuImpl.class); //req.adaptTo(Article.class);
-        Assertions.assertNotNull(megaMenu);
-
-        List<MegaMenuItem> megaMenuItems = megaMenu.getItems();
-        Assertions.assertNull(megaMenuItems);
-    }
 }

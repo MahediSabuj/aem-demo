@@ -1,14 +1,16 @@
 package com.aem.demo.core.components.internal.services;
 
-import com.adobe.cq.dam.cfm.ContentElement;
-import com.adobe.cq.dam.cfm.ContentFragment;
-import com.adobe.cq.dam.cfm.ContentVariation;
-import com.adobe.cq.dam.cfm.FragmentData;
+import com.adobe.cq.dam.cfm.*;
 import com.aem.demo.core.components.services.ContentFragmentService;
+import com.aem.demo.core.components.services.ResourceResolverService;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.sling.api.resource.Resource;
+import org.apache.sling.api.resource.ResourceResolver;
 import org.osgi.framework.Constants;
 import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.annotations.Reference;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.HashMap;
 import java.util.Iterator;
@@ -19,6 +21,11 @@ import java.util.Map;
     Constants.SERVICE_DESCRIPTION + "=Content Fragment Service"
 })
 public class ContentFragmentServiceImpl implements ContentFragmentService {
+    private final Logger LOG = LoggerFactory.getLogger(getClass());
+
+    @Reference
+    ResourceResolverService resolverService;
+
     private static final String MASTER_VERSION = "master";
 
     @Override
@@ -35,6 +42,26 @@ public class ContentFragmentServiceImpl implements ContentFragmentService {
             }
         }
         return fragmentMap;
+    }
+
+    @Override
+    public ContentFragment create(String path, String title, String description) {
+        ResourceResolver resolver = resolverService.getResourceResolver();
+        Resource resource = resolver.getResource(path);
+
+        if (resource != null) {
+            FragmentTemplate template = resolver.adaptTo(FragmentTemplate.class);
+
+            if (template != null) {
+                try {
+                    return template.createFragment(resource, title, description);
+                } catch (ContentFragmentException ex) {
+                    LOG.error("Failed to Create New Content Fragment: {}", ex.getMessage());
+                }
+            }
+        }
+
+        return null;
     }
 
     private FragmentData getValue(String variationName, ContentElement element) {

@@ -8,7 +8,6 @@ import com.aem.demo.core.filters.PageFilter;
 import com.day.cq.wcm.api.Page;
 import com.day.cq.wcm.api.PageManager;
 import org.apache.sling.api.SlingHttpServletRequest;
-import org.apache.sling.api.resource.LoginException;
 import org.apache.sling.api.resource.ResourceResolver;
 import org.apache.sling.models.annotations.Default;
 import org.apache.sling.models.annotations.DefaultInjectionStrategy;
@@ -94,16 +93,12 @@ public class MegaMenuImpl implements MegaMenu {
     @Override
     public List<MegaMenuItem> getItems() {
         if(this.items == null) {
-            try {
-                ResourceResolver resolver = resolverService.getResourceResolver();
-                PageManager pageManager = resolver.adaptTo(PageManager.class);
-                this.navigationRootPage = pageManager.getPage(navigationRoot);
-                this.items = getRootItems(navigationRootPage)
-                    .stream().map(page -> createNavigationItem(page, getItems(page)))
-                    .collect(Collectors.toList());
-            } catch (LoginException e) {
-                LOG.error("Error in Resource Resolver");
-            }
+            ResourceResolver resolver = resolverService.getResourceResolver();
+            PageManager pageManager = resolver.adaptTo(PageManager.class);
+            this.navigationRootPage = pageManager.getPage(navigationRoot);
+            this.items = getRootItems(navigationRootPage)
+                .stream().map(page -> createNavigationItem(page, getItems(page)))
+                .collect(Collectors.toList());
         }
         return items != null ? Collections.unmodifiableList(items) : null;
     }

@@ -24,10 +24,16 @@ public class ResourceResolverServiceImpl implements ResourceResolverService {
     private ResourceResolverFactory resolverFactory;
 
     @Override
-    public ResourceResolver getResourceResolver() throws LoginException {
+    public ResourceResolver getResourceResolver() {
         Map<String, Object> params = new HashMap<>();
         params.put(resolverFactory.SUBSERVICE, "writeService");
 
-        return resolverFactory.getServiceResourceResolver(params);
+        try {
+            return resolverFactory.getServiceResourceResolver(params);
+        } catch (LoginException ex) {
+            LOG.error("System User Login Error: {}", ex.getMessage());
+        }
+
+        return null;
     }
 }
