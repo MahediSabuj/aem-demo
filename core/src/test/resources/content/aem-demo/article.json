@@ -3,10 +3,10 @@
     "jcr:primaryType": "nt:unstructured",
     "v1": {
       "jcr:primaryType": "nt:unstructured",
-      "articleTitle": "AEM Community",
-      "articleDescription": "<p>Hello World!</p>",
-      "articleAuthor": "Mahedi Sabuj",
-      "articleTags": ["aem-demo:activity/biking", "aem-demo:activity/hiking"],
+      "title": "AEM Community",
+      "description": "<p>Hello World!</p>",
+      "author": "Mahedi Sabuj",
+      "tags": ["aem-demo:activity/biking", "aem-demo:activity/hiking"],
       "sling:resourceType": "aem-demo/components/article/v1/article"
     },
     "v2": {

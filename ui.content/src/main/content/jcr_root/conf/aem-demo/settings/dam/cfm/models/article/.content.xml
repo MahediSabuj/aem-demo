@@ -52,7 +52,7 @@
               fieldLabel="Author"
               filter="hierarchy"
               fragmentmodelreference="/conf/aem-demo/settings/dam/cfm/models/author"
-              listOrder="22"
+              listOrder="9"
               metaType="fragment-reference"
               name="author"
               nameSuffix="contentReference"
@@ -70,7 +70,7 @@
               autocreateTag="true"
               fieldLabel="Tags"
               forceSelection="false"
-              listOrder="21"
+              listOrder="7"
               metaType="tags"
               multiple="[true,false]"
               name="tags"
@@ -78,6 +78,22 @@
               rootPath="/content/cq:tags/aem-demo"
               showEmptyInReadOnly="true"
               valueType="string/tags[]"/>
+            <_x0031_707816396515 jcr:primaryType="nt:unstructured"
+              sling:resourceType="dam/cfm/models/editor/components/datatypes/datepicker"
+              displayedFormat="YYYY-MM-DD"
+              fieldLabel="Publish Date"
+              listOrder="21"
+              metaType="date"
+              name="publishDate"
+              renderReadOnly="false"
+              required="on"
+              showEmptyInReadOnly="true"
+              type="date"
+              valueFormat="YYYY-MM-DD"
+              valueType="calendar/date">
+              <granite:data jcr:primaryType="nt:unstructured"
+                typeHint="Date"/>
+            </_x0031_707816396515>
           </items>
         </content>
       </cq:dialog>

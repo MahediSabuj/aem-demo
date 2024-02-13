@@ -4,6 +4,7 @@ import com.adobe.cq.export.json.ExporterConstants;
 import com.aem.demo.core.components.models.Article;
 import com.day.cq.tagging.Tag;
 import com.day.cq.tagging.TagManager;
+import lombok.Getter;
 import org.apache.sling.api.SlingHttpServletRequest;
 import org.apache.sling.api.resource.ResourceResolver;
 import org.apache.sling.models.annotations.DefaultInjectionStrategy;
@@ -11,6 +12,8 @@ import org.apache.sling.models.annotations.Exporter;
 import org.apache.sling.models.annotations.Model;
 import org.apache.sling.models.annotations.injectorspecific.SlingObject;
 import org.apache.sling.models.annotations.injectorspecific.ValueMapValue;
+
+import java.util.Date;
 
 @Model(
   adaptables = { SlingHttpServletRequest.class },
@@ -23,43 +26,35 @@ import org.apache.sling.models.annotations.injectorspecific.ValueMapValue;
 public class ArticleImpl implements Article {
     protected static final String RESOURCE_TYPE = "aem-demo/components/article/v1/article";
 
+    @Getter
     @ValueMapValue
-    protected String articleTitle;
+    protected String title;
+
+    @Getter
+    @ValueMapValue
+    protected String description;
+
+    @Getter
+    @ValueMapValue
+    protected String author;
 
     @ValueMapValue
-    protected String articleDescription;
+    protected String[] tags;
 
+    @Getter
     @ValueMapValue
-    protected String articleAuthor;
-
-    @ValueMapValue
-    protected String[] articleTags;
+    protected Date publishDate;
 
     @SlingObject
     protected ResourceResolver resourceResolver;
 
     @Override
-    public String getArticleTitle() {
-        return articleTitle;
-    }
-
-    @Override
-    public String getArticleDescription() {
-        return articleDescription;
-    }
-
-    @Override
-    public String getArticleAuthor() {
-        return articleAuthor;
-    }
-
-    @Override
-    public String[] getArticleTags() {
+    public String[] getTags() {
         TagManager tagManager = resourceResolver.adaptTo(TagManager.class);
 
-        String[] tagList = new String[articleTags.length];
-        for (int index = 0; index < articleTags.length; index++) {
-            Tag tag = tagManager.resolve(articleTags[index]);
+        String[] tagList = new String[tags.length];
+        for (int index = 0; index < tags.length; index++) {
+            Tag tag = tagManager.resolve(tags[index]);
             if(tag != null) {
                 tagList[index] = tag.getTitle();
             }

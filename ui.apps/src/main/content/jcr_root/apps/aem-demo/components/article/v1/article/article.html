@@ -1,11 +1,11 @@
 <nav data-sly-use.article="com.aem.demo.core.components.models.Article"
     data-sly-use.templates="core/wcm/components/commons/v1/templates.html"
-    data-sly-test.hasContent="${article.articleTitle}"
+    data-sly-test.hasContent="${article.title}"
     class="article__inner">
     <div>
-        <h3>${article.articleTitle}, ${article.articleAuthor}</h3>
-        <p>${article.articleDescription @ context = 'html'}</p>
-        <ul data-sly-list="${article.articleTags}"><li>${item}</li></ul>
+        <h3>${article.title}, ${article.author}</h3>
+        <p>${article.description @ context = 'html'}</p>
+        <ul data-sly-list="${article.tags}"><li>${item}</li></ul>
     </div>
 </nav>
 <sly data-sly-call="${templates.placeholder @ isEmpty = !hasContent, classAppend = 'cmp-article'}"></sly>

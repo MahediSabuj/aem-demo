@@ -39,17 +39,17 @@ public class ArticleImpl extends com.aem.demo.core.components.internal.models.v1
     public void init() {
         Map<String, Object> articleFragmentMap = getFragment(fragmentPath, variationName);
         if (articleFragmentMap != null) {
-            articleTitle = getFragmentElementValue(articleFragmentMap, "title");
-            articleDescription = getFragmentElementValue(articleFragmentMap, "description");
+            title = getFragmentElementValue(articleFragmentMap, "title");
+            description = getFragmentElementValue(articleFragmentMap, "description");
 
             String authorFragmentPath = getFragmentElementValue(articleFragmentMap, "author");
             Map<String, Object> authorFragmentMap = getFragment(authorFragmentPath, "");
             if (authorFragmentMap != null) {
-                articleAuthor = getFragmentElementValue(authorFragmentMap, "name");
+                author = getFragmentElementValue(authorFragmentMap, "name");
             }
 
             if (articleFragmentMap.containsKey("tags")) {
-                articleTags = (String[]) articleFragmentMap.get("tags");
+                tags = (String[]) articleFragmentMap.get("tags");
             }
         }
     }

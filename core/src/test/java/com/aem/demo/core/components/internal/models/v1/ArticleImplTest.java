@@ -31,11 +31,11 @@ public class ArticleImplTest {
         Article article = Objects.requireNonNull(modelFactory).createModel(request, ArticleImpl.class);
 
         Assertions.assertNotNull(article);
-        Assertions.assertEquals("AEM Community", article.getArticleTitle());
-        Assertions.assertEquals("<p>Hello World!</p>", article.getArticleDescription());
-        Assertions.assertEquals("Mahedi Sabuj", article.getArticleAuthor());
+        Assertions.assertEquals("AEM Community", article.getTitle());
+        Assertions.assertEquals("<p>Hello World!</p>", article.getDescription());
+        Assertions.assertEquals("Mahedi Sabuj", article.getAuthor());
 
-        String[] articleTags = article.getArticleTags();
+        String[] articleTags = article.getTags();
         Assertions.assertNotNull(articleTags);
         Assertions.assertEquals(2, articleTags.length);
         Assertions.assertEquals("Biking", articleTags[0]);

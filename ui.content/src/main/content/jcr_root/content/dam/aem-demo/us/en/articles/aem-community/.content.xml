@@ -15,6 +15,7 @@
         author="/content/dam/aem-demo/us/en/authors/mahedi-sabuj"
         description="&lt;p>Hello World!!&lt;/p>"
         description_x0040_ContentType="text/html"
+        publishDate="{Date}2024-02-29T00:00:00.000Z"
         tags="[aem-demo:activity/biking,aem-demo:activity/running]"
         title="AEM Community"/>
     </data>

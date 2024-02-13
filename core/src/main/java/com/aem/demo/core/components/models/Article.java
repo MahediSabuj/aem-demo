@@ -2,13 +2,17 @@ package com.aem.demo.core.components.models;
 
 import org.osgi.annotation.versioning.ConsumerType;
 
+import java.util.Date;
+
 @ConsumerType
 public interface Article {
-    String getArticleTitle();
+    String getTitle();
 
-    String getArticleDescription();
+    String getDescription();
 
-    String getArticleAuthor();
+    String getAuthor();
 
-    String[] getArticleTags();
+    String[] getTags();
+
+    Date getPublishDate();
 }

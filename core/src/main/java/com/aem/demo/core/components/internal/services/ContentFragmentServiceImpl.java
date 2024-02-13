@@ -3,6 +3,7 @@ package com.aem.demo.core.components.internal.services;
 import com.adobe.cq.dam.cfm.*;
 import com.aem.demo.core.components.services.ContentFragmentService;
 import com.aem.demo.core.components.services.ResourceResolverService;
+import com.day.cq.commons.jcr.JcrUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.api.resource.ResourceResolver;
@@ -54,6 +55,7 @@ public class ContentFragmentServiceImpl implements ContentFragmentService {
 
             if (template != null) {
                 try {
+                    title = JcrUtil.createValidName(title);
                     return template.createFragment(resource, title, description);
                 } catch (ContentFragmentException ex) {
                     LOG.error("Failed to Create New Content Fragment: {}", ex.getMessage());
