@@ -1,7 +1,7 @@
-package com.aem.demo.core.components.internal.services;
+package com.aem.demo.core.components.internal.services.contentfragment;
 
 import com.adobe.cq.dam.cfm.*;
-import com.aem.demo.core.components.services.ContentFragmentService;
+import com.aem.demo.core.components.services.contentfragment.ContentFragmentService;
 import com.aem.demo.core.components.services.ResourceResolverService;
 import com.day.cq.commons.jcr.JcrUtil;
 import org.apache.commons.lang3.StringUtils;

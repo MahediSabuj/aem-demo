@@ -2,7 +2,7 @@ package com.aem.demo.core.components.internal.models.v2;
 
 import com.adobe.cq.export.json.ExporterConstants;
 import com.aem.demo.core.components.models.Article;
-import com.aem.demo.core.components.services.ContentFragmentService;
+import com.aem.demo.core.components.services.contentfragment.ContentFragmentService;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.sling.api.SlingHttpServletRequest;
 import org.apache.sling.api.resource.Resource;

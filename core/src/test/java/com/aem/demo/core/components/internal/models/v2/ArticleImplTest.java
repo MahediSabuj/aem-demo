@@ -1,7 +1,7 @@
 package com.aem.demo.core.components.internal.models.v2;
 
 import com.aem.demo.core.components.models.Article;
-import com.aem.demo.core.components.services.ContentFragmentService;
+import com.aem.demo.core.components.services.contentfragment.ContentFragmentService;
 import io.wcm.testing.mock.aem.junit5.AemContext;
 import io.wcm.testing.mock.aem.junit5.AemContextExtension;
 import org.apache.sling.models.factory.ModelFactory;
