@@ -25,9 +25,6 @@ import java.util.Iterator;
 public class ContentFragmentServiceImpl implements ContentFragmentService {
     private final Logger LOG = LoggerFactory.getLogger(getClass());
 
-    @Reference
-    ResourceResolverService resolverService;
-
     private static final String MASTER_VERSION = "master";
 
     @Override
@@ -47,30 +44,26 @@ public class ContentFragmentServiceImpl implements ContentFragmentService {
     }
 
     @Override
-    public ContentFragment create(String cfmPath, String assetPath, String title) {
-        ContentFragment fragment = null;
-        ResourceResolver resolver = resolverService.getResourceResolver();
+    public ContentFragment create(ResourceResolver resolver, String cfmPath, String assetPath, String title) {
         Resource cfmResource = resolver.getResource(cfmPath);
 
         if (cfmResource != null) {
-            Session session = resolver.adaptTo(Session.class);
             FragmentTemplate template = cfmResource.adaptTo(FragmentTemplate.class);
 
-            if (session != null && template != null) {
+            if (template != null) {
                 try {
                     String name = JcrUtil.createValidName(title);
                     Resource parentRsc = resolver.getResource(assetPath);
                     if (parentRsc != null) {
-                        fragment = template.createFragment(parentRsc, name, title);
-                        session.save();
+                        return template.createFragment(parentRsc, name, title);
                     }
-                } catch (ContentFragmentException | RepositoryException ex) {
+                } catch (ContentFragmentException ex) {
                     LOG.error("Failed to Create New Content Fragment: {}", ex.getMessage());
                 }
             }
         }
 
-        return fragment;
+        return null;
     }
 
     @Override
@@ -83,7 +76,11 @@ public class ContentFragmentServiceImpl implements ContentFragmentService {
                     final ContentElement element = elementIterator.next();
                     String name = element.getName();
                     FragmentData fragmentData = element.getValue();
-                    fragmentData.setValue(properties.get(name));
+
+                    if (properties.containsKey(name)) {
+                        fragmentData.setValue(properties.get(name));
+                        element.setValue(fragmentData);
+                    }
                 }
             } catch (ContentFragmentException ex) {
                 LOG.error("Failed to Update Content Fragment: {}", ex.getMessage());

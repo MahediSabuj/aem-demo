@@ -34,13 +34,13 @@ public class ArticleImplTest {
 
     @Test
     public void testArticle(AemContext context) {
-        Map<String, Object> fragmentMap = new HashMap<>();
+        HashMap<String, Object> fragmentMap = new HashMap<>();
         fragmentMap.put("title", "AEM Community");
         fragmentMap.put("description", "<p>Hello World</p>");
         fragmentMap.put("author", "/content/dam/aem-demo/us/en/authors/mahedi-sabuj");
         fragmentMap.put("tags", new String[]{"aem-demo:activity/biking","aem-demo:activity/hiking"});
 
-        Map<String, Object> authorFragmentMap = new HashMap<>();
+        HashMap<String, Object> authorFragmentMap = new HashMap<>();
         authorFragmentMap.put("name", "Mahedi Sabuj");
 
         Mockito.when(contentFragmentService.get(Mockito.any(), Mockito.eq("master"))).thenReturn(fragmentMap);
