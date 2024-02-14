@@ -16,9 +16,9 @@
       <container jcr:primaryType="nt:unstructured"
         cq:policy="aem-demo/components/container/policy_649128221558427"
         sling:resourceType="wcm/core/components/policies/mapping">
-      <container jcr:primaryType="nt:unstructured"
-        cq:policy="aem-demo/components/container/policy_1574695586800"
-        sling:resourceType="wcm/core/components/policies/mapping" />
+        <container jcr:primaryType="nt:unstructured"
+          cq:policy="aem-demo/components/container/policy_1574695586800"
+          sling:resourceType="wcm/core/components/policies/mapping" />
       </container>
     </root>
   </jcr:content>

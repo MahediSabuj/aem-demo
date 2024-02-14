@@ -17,23 +17,23 @@
           layout="responsiveGrid">
           <login jcr:primaryType="nt:unstructured"
             sling:resourceType="aem-demo/components/login/v1/login">
-            <formusername jcr:primaryType="nt:unstructured"
+            <username jcr:primaryType="nt:unstructured"
               jcr:title="Username"
               name="username"
               required="{Boolean}true"
               type="text"
-              sling:resourceType="aem-community/components/formtext"/>
-            <formpassword jcr:primaryType="nt:unstructured"
+              sling:resourceType="aem-community/components/form/text"/>
+            <password jcr:primaryType="nt:unstructured"
               jcr:title="Password"
               name="password"
               required="{Boolean}true"
               type="password"
-              sling:resourceType="aem-community/components/formtext"/>
-            <formbutton jcr:primaryType="nt:unstructured"
+              sling:resourceType="aem-community/components/form/text"/>
+            <button jcr:primaryType="nt:unstructured"
               jcr:title="Login"
               name="login"
               type="submit"
-              sling:resourceType="aem-community/components/formbutton"/>
+              sling:resourceType="aem-community/components/form/button"/>
           </login>
         </container>
       </container>
