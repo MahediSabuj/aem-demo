@@ -17,7 +17,6 @@ import javax.jcr.RepositoryException;
 import javax.jcr.Session;
 import java.util.HashMap;
 import java.util.Iterator;
-import java.util.Map;
 
 @Component(service = { ContentFragmentService.class },
   property = {
@@ -32,8 +31,8 @@ public class ContentFragmentServiceImpl implements ContentFragmentService {
     private static final String MASTER_VERSION = "master";
 
     @Override
-    public Map<String, Object> get(Resource resource, String variationName) {
-        Map<String, Object> fragmentMap = new HashMap<>();
+    public HashMap<String, Object> get(Resource resource, String variationName) {
+        HashMap<String, Object> fragmentMap = new HashMap<>();
         if (resource != null) {
             ContentFragment fragment = resource.adaptTo(ContentFragment.class);
             if (fragment != null) {
@@ -72,6 +71,27 @@ public class ContentFragmentServiceImpl implements ContentFragmentService {
         }
 
         return fragment;
+    }
+
+    @Override
+    public boolean update(ContentFragment fragment, HashMap<String, Object> properties) {
+        if (fragment != null) {
+            final Iterator<ContentElement> elementIterator = fragment.getElements();
+
+            try {
+                while (elementIterator.hasNext()) {
+                    final ContentElement element = elementIterator.next();
+                    String name = element.getName();
+                    FragmentData fragmentData = element.getValue();
+                    fragmentData.setValue(properties.get(name));
+                }
+            } catch (ContentFragmentException ex) {
+                LOG.error("Failed to Update Content Fragment: {}", ex.getMessage());
+                return false;
+            }
+        }
+
+        return true;
     }
 
     private FragmentData getValue(String variationName, ContentElement element) {
