@@ -95,6 +95,28 @@
                             <target>/apps/aem-demo-vendor-packages/application/install</target>
                         </embedded>
                         <embedded>
+                            <groupId>com.adobe.aem</groupId>
+                            <artifactId>core-forms-components-af-apps</artifactId>
+                            <type>zip</type>
+                            <target>/apps/aem-demo-vendor-packages/application/install</target>
+                        </embedded>
+                        <embedded>
+                            <groupId>com.adobe.aem</groupId>
+                            <artifactId>core-forms-components-af-core</artifactId>
+                            <target>/apps/aem-demo-vendor-packages/application/install</target>
+                        </embedded>
+                        <embedded>
+                            <groupId>com.adobe.aem</groupId>
+                            <artifactId>core-forms-components-apps</artifactId>
+                            <type>zip</type>
+                            <target>/apps/aem-demo-vendor-packages/application/install</target>
+                        </embedded>
+                        <embedded>
+                            <groupId>com.adobe.aem</groupId>
+                            <artifactId>core-forms-components-core</artifactId>
+                            <target>/apps/aem-demo-vendor-packages/application/install</target>
+                        </embedded>
+                        <embedded>
                             <groupId>io.wcm</groupId>
                             <artifactId>io.wcm.caconfig.editor.package</artifactId>
                             <type>zip</type>
@@ -207,7 +229,6 @@
             <version>${project.version}</version>
             <type>zip</type>
         </dependency>
-
         <dependency>
             <groupId>com.adobe.cq</groupId>
             <artifactId>core.wcm.components.content</artifactId>
@@ -217,6 +238,24 @@
             <groupId>com.adobe.cq</groupId>
             <artifactId>core.wcm.components.config</artifactId>
             <type>zip</type>
+        </dependency>
+        <dependency>
+            <groupId>com.adobe.aem</groupId>
+            <artifactId>core-forms-components-apps</artifactId>
+            <type>zip</type>
+        </dependency>
+        <dependency>
+            <groupId>com.adobe.aem</groupId>
+            <artifactId>core-forms-components-core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.adobe.aem</groupId>
+            <artifactId>core-forms-components-af-apps</artifactId>
+            <type>zip</type>
+        </dependency>
+        <dependency>
+            <groupId>com.adobe.aem</groupId>
+            <artifactId>core-forms-components-af-core</artifactId>
         </dependency>
         <dependency>
             <groupId>io.wcm</groupId>
