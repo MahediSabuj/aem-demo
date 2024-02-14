@@ -1,20 +1,16 @@
-package com.aem.demo.core.components.internal.services.contentfragment;
+package com.aem.demo.core.components.internal.services;
 
 import com.adobe.cq.dam.cfm.*;
-import com.aem.demo.core.components.services.contentfragment.ContentFragmentService;
-import com.aem.demo.core.components.services.ResourceResolverService;
+import com.aem.demo.core.components.services.ContentFragmentService;
 import com.day.cq.commons.jcr.JcrUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.api.resource.ResourceResolver;
 import org.osgi.framework.Constants;
 import org.osgi.service.component.annotations.Component;
-import org.osgi.service.component.annotations.Reference;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.jcr.RepositoryException;
-import javax.jcr.Session;
 import java.util.HashMap;
 import java.util.Iterator;
 

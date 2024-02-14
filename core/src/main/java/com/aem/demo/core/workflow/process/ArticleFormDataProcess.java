@@ -1,13 +1,12 @@
 package com.aem.demo.core.workflow.process;
 
 import com.adobe.cq.dam.cfm.ContentFragment;
-import com.adobe.granite.workflow.WorkflowException;
 import com.adobe.granite.workflow.WorkflowSession;
 import com.adobe.granite.workflow.exec.WorkItem;
 import com.adobe.granite.workflow.exec.WorkflowProcess;
 import com.adobe.granite.workflow.metadata.MetaDataMap;
 import com.aem.demo.core.components.services.ResourceResolverService;
-import com.aem.demo.core.components.services.contentfragment.ContentFragmentService;
+import com.aem.demo.core.components.services.ContentFragmentService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.DeserializationFeature;

@@ -1,4 +1,4 @@
-package com.aem.demo.core.components.services.contentfragment;
+package com.aem.demo.core.components.services;
 
 import com.adobe.cq.dam.cfm.ContentFragment;
 import org.apache.sling.api.resource.Resource;
