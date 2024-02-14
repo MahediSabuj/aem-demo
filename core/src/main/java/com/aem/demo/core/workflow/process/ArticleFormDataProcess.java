@@ -25,7 +25,9 @@ public class ArticleFormDataProcess implements WorkflowProcess {
     private final Logger LOG = LoggerFactory.getLogger(getClass());
 
     private final String FORM_BODY = "Article";
-    private final String CONTENT_FRAGMENT_PATH = "/content/dam/aem-demo/content-fragments/article";
+    private final String CFM_PATH = "/conf/aem-demo/settings/dam/cfm/models/article";
+    private final String ASSET_PATH = "/content/dam/aem-demo/content-fragments/article";
+
 
     @Reference
     private ContentFragmentService fragmentService;
@@ -39,7 +41,7 @@ public class ArticleFormDataProcess implements WorkflowProcess {
 
         try {
             Article article = mapper.readValue(formBody, ArticleImpl.class);
-            fragmentService.create(CONTENT_FRAGMENT_PATH, article.getTitle(), StringUtils.EMPTY);
+            fragmentService.create(CFM_PATH, ASSET_PATH, article.getTitle());
 
         } catch (JsonProcessingException ex) {
             LOG.error("Failed to Convert into Article: {}", ex.getMessage());

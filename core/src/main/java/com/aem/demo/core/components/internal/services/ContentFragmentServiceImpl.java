@@ -25,6 +25,9 @@ public class ContentFragmentServiceImpl implements ContentFragmentService {
     private final Logger LOG = LoggerFactory.getLogger(getClass());
 
     @Reference
+    private ContentFragmentManager fragmentManager;
+
+    @Reference
     ResourceResolverService resolverService;
 
     private static final String MASTER_VERSION = "master";
@@ -46,17 +49,20 @@ public class ContentFragmentServiceImpl implements ContentFragmentService {
     }
 
     @Override
-    public ContentFragment create(String path, String title, String description) {
+    public ContentFragment create(String cfmPath, String assetPath, String title) {
         ResourceResolver resolver = resolverService.getResourceResolver();
-        Resource resource = resolver.getResource(path);
+        Resource cfmResource = resolver.getResource(cfmPath);
 
-        if (resource != null) {
-            FragmentTemplate template = resolver.adaptTo(FragmentTemplate.class);
+        if (cfmResource != null) {
+            FragmentTemplate template = cfmResource.adaptTo(FragmentTemplate.class);
 
             if (template != null) {
                 try {
-                    title = JcrUtil.createValidName(title);
-                    return template.createFragment(resource, title, description);
+                    String name = JcrUtil.createValidName(title);
+                    Resource parentRsc = resolver.getResource(assetPath);
+                    if (parentRsc != null) {
+                        return template.createFragment(parentRsc, name, title);
+                    }
                 } catch (ContentFragmentException ex) {
                     LOG.error("Failed to Create New Content Fragment: {}", ex.getMessage());
                 }

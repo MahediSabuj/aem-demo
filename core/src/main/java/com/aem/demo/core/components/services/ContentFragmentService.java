@@ -8,5 +8,5 @@ import java.util.Map;
 public interface ContentFragmentService {
     Map<String, Object> get(Resource resource, String variationName);
 
-    ContentFragment create(String path, String title, String description);
+    ContentFragment create(String cfmPath, String assetPath, String title);
 }
