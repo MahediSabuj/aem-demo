@@ -13,6 +13,8 @@ import org.osgi.service.component.annotations.Reference;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.jcr.RepositoryException;
+import javax.jcr.Session;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -23,9 +25,6 @@ import java.util.Map;
 })
 public class ContentFragmentServiceImpl implements ContentFragmentService {
     private final Logger LOG = LoggerFactory.getLogger(getClass());
-
-    @Reference
-    private ContentFragmentManager fragmentManager;
 
     @Reference
     ResourceResolverService resolverService;
@@ -50,26 +49,29 @@ public class ContentFragmentServiceImpl implements ContentFragmentService {
 
     @Override
     public ContentFragment create(String cfmPath, String assetPath, String title) {
+        ContentFragment fragment = null;
         ResourceResolver resolver = resolverService.getResourceResolver();
         Resource cfmResource = resolver.getResource(cfmPath);
 
         if (cfmResource != null) {
+            Session session = resolver.adaptTo(Session.class);
             FragmentTemplate template = cfmResource.adaptTo(FragmentTemplate.class);
 
-            if (template != null) {
+            if (session != null && template != null) {
                 try {
                     String name = JcrUtil.createValidName(title);
                     Resource parentRsc = resolver.getResource(assetPath);
                     if (parentRsc != null) {
-                        return template.createFragment(parentRsc, name, title);
+                        fragment = template.createFragment(parentRsc, name, title);
+                        session.save();
                     }
-                } catch (ContentFragmentException ex) {
+                } catch (ContentFragmentException | RepositoryException ex) {
                     LOG.error("Failed to Create New Content Fragment: {}", ex.getMessage());
                 }
             }
         }
 
-        return null;
+        return fragment;
     }
 
     private FragmentData getValue(String variationName, ContentElement element) {
