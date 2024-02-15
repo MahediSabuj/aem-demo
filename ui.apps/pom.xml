@@ -54,6 +54,7 @@
                     <group>com.aem.demo</group>
                     <name>aem-demo.ui.apps</name>
                     <packageType>application</packageType>
+                    <skipSubPackageValidation>true</skipSubPackageValidation>
                     <repositoryStructurePackages>
                         <repositoryStructurePackage>
                             <groupId>com.aem.demo</groupId>
@@ -127,7 +128,6 @@
             <type>zip</type>
         </dependency>
 
-
         <dependency>
             <groupId>com.aem.demo</groupId>
             <artifactId>aem-demo.ui.apps.structure</artifactId>
@@ -151,6 +151,32 @@
             <type>zip</type>
         </dependency>
 
+        <dependency>
+            <groupId>com.adobe.aemfd</groupId>
+            <artifactId>aemfd-client-sdk</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.adobe.aem</groupId>
+            <artifactId>core-forms-components-apps</artifactId>
+            <type>zip</type>
+        </dependency>
+
+        <dependency>
+            <groupId>com.adobe.aem</groupId>
+            <artifactId>core-forms-components-core</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.adobe.aem</groupId>
+            <artifactId>core-forms-components-af-apps</artifactId>
+            <type>zip</type>
+        </dependency>
+
+        <dependency>
+            <groupId>com.adobe.aem</groupId>
+            <artifactId>core-forms-components-af-core</artifactId>
+        </dependency>
 
         <dependency>
             <groupId>com.adobe.aem</groupId>
