@@ -937,6 +937,12 @@ Bundle-DocURL:
         <scope>test</scope>
       </dependency>
 
+      <dependency>
+        <groupId>org.apache.sling</groupId>
+        <artifactId>org.apache.sling.dynamic-include</artifactId>
+        <version>3.3.0</version>
+      </dependency>
+
     </dependencies>
   </dependencyManagement>
   

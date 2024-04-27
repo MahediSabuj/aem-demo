@@ -122,6 +122,12 @@
                             <type>zip</type>
                             <target>/apps/aem-demo-vendor-packages/application/install</target>
                         </embedded>
+                        <embedded>
+                            <groupId>org.apache.sling</groupId>
+                            <artifactId>org.apache.sling.dynamic-include</artifactId>
+                            <type>jar</type>
+                            <target>/apps/aem-demo-packages/application/install</target>
+                        </embedded>
                     </embeddeds>
                 </configuration>
             </plugin>
@@ -261,6 +267,10 @@
             <groupId>io.wcm</groupId>
             <artifactId>io.wcm.caconfig.editor.package</artifactId>
             <type>zip</type>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.sling</groupId>
+            <artifactId>org.apache.sling.dynamic-include</artifactId>
         </dependency>
     </dependencies>
 </project>
