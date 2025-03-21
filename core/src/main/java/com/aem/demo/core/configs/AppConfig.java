@@ -9,7 +9,7 @@ public @interface AppConfig {
     @AttributeDefinition(name = "API Base URL")
     String api_baseurl();
 
-    @AttributeDefinition(name = "Salesforce Connected App CLient ID")
+    @AttributeDefinition(name = "Salesforce Connected App Client ID")
     String client_id();
 
     @AttributeDefinition(name = "Salesforce Connected App Callback URL")
