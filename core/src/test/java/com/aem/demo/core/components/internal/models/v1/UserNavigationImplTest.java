@@ -63,7 +63,7 @@ public class UserNavigationImplTest {
         context.registerService(FormatterService.class, formatterService);
 
         ModelFactory modelFactory = context.getService(ModelFactory.class);
-
+        context.addModelsForClasses(UserNavigationImpl.class);
         UserNavigation userNavigation = modelFactory.createModel(
             request, UserNavigationImpl.class);
 
@@ -87,6 +87,7 @@ public class UserNavigationImplTest {
         Mockito.when(loginService.isLoggedIn(Mockito.any())).thenReturn(null);
 
         ModelFactory modelFactory = context.getService(ModelFactory.class);
+        context.addModelsForClasses(UserNavigationImpl.class);
         UserNavigation userNavigation = modelFactory.createModel(
             request, UserNavigationImpl.class);
 

@@ -46,6 +46,7 @@ public class ArticleImplTest {
         Mockito.when(contentFragmentService.get(Mockito.any(), Mockito.eq(""))).thenReturn(authorFragmentMap);
 
         ModelFactory modelFactory = context.getService(ModelFactory.class);
+        context.addModelsForClasses(ArticleImpl.class);
         Article article = modelFactory.createModel(context.request(), ArticleImpl.class);
 
         Assertions.assertNotNull(article);

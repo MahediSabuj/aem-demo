@@ -1,7 +1,5 @@
 package com.aem.demo.core.components.internal.models.v1;
 
-import com.adobe.cq.wcm.core.components.commons.link.Link;
-import com.adobe.cq.wcm.core.components.commons.link.LinkManager;
 import com.aem.demo.core.components.models.MegaMenuItem;
 import com.day.cq.wcm.api.Page;
 
