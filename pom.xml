@@ -42,9 +42,9 @@
     <vault.user>admin</vault.user>
     <vault.password>admin</vault.password>
     <frontend-maven-plugin.version>1.12.0</frontend-maven-plugin.version>
-    <core.wcm.components.version>2.23.4</core.wcm.components.version>
-    <core.forms.components.version>1.1.32</core.forms.components.version>
-    <core.forms.components.af.version>1.1.32</core.forms.components.af.version>
+    <core.wcm.components.version>2.28.0</core.wcm.components.version>
+    <core.forms.components.version>1.1.66</core.forms.components.version>
+    <core.forms.components.af.version>1.1.66</core.forms.components.af.version>
     <aem.forms.sdk.api>6.0.1016</aem.forms.sdk.api>
     <bnd.version>5.1.2</bnd.version>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -711,7 +711,8 @@ Bundle-DocURL:
       <dependency>
         <groupId>com.adobe.aem</groupId>
         <artifactId>uber-jar</artifactId>
-        <version>6.5.18</version>
+        <version>6.6.0</version>
+        <classifier>apis</classifier>
         <scope>provided</scope>
       </dependency>
                   
@@ -833,6 +834,24 @@ Bundle-DocURL:
         <type>zip</type>
       </dependency>
 
+      <dependency>
+        <groupId>com.fasterxml.jackson.core</groupId>
+        <artifactId>jackson-core</artifactId>
+        <version>2.18.3</version>
+      </dependency>
+
+      <dependency>
+        <groupId>com.fasterxml.jackson.core</groupId>
+        <artifactId>jackson-databind</artifactId>
+        <version>2.18.3</version>
+      </dependency>
+
+      <dependency>
+        <groupId>com.fasterxml.jackson.core</groupId>
+        <artifactId>jackson-annotations</artifactId>
+        <version>2.18.3</version>
+      </dependency>
+
       <!-- Testing -->
                   
       <dependency>
@@ -846,14 +865,14 @@ Bundle-DocURL:
       <dependency>
         <groupId>org.mockito</groupId>
         <artifactId>mockito-core</artifactId>
-        <version>5.7.0</version>
+        <version>5.15.2</version>
         <scope>test</scope>
       </dependency>
                   
       <dependency>
         <groupId>org.mockito</groupId>
         <artifactId>mockito-junit-jupiter</artifactId>
-        <version>5.7.0</version>
+        <version>5.15.2</version>
         <scope>test</scope>
       </dependency>
                   
@@ -880,7 +899,7 @@ Bundle-DocURL:
       <dependency>
         <groupId>org.apache.sling</groupId>
         <artifactId>org.apache.sling.testing.osgi-mock.junit5</artifactId>
-        <version>3.3.10</version>
+        <version>3.5.2</version>
         <scope>test</scope>
       </dependency>
 
